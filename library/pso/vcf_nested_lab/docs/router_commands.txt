@@ -1,0 +1,19 @@
+set protocols bgp 65001
+set protocols bgp 65001 address-family ipv4-unicast
+set protocols bgp 65001 address-family ipv4-unicast redistribute static
+set protocols bgp 65001 neighbor 172.16.116.10 remote-as 65011
+set protocols bgp 65001 neighbor 172.16.116.10 timers keepalive 4
+set protocols bgp 65001 neighbor 172.16.116.10 timers holdtime 12
+set protocols bgp 65001 neighbor 172.16.116.10 password VMware1!
+set protocols bgp 65001 neighbor 172.16.116.11 remote-as 65011
+set protocols bgp 65001 neighbor 172.16.116.11 timers keepalive 4
+set protocols bgp 65001 neighbor 172.16.116.11 timers holdtime 12
+set protocols bgp 65001 neighbor 172.16.116.11 password VMware1!
+set protocols bgp 65001 neighbor 172.16.117.10 remote-as 65011
+set protocols bgp 65001 neighbor 172.16.117.10 timers keepalive 4
+set protocols bgp 65001 neighbor 172.16.117.10 timers holdtime 12
+set protocols bgp 65001 neighbor 172.16.117.10 password VMware1!
+set protocols bgp 65001 neighbor 172.16.117.11 remote-as 65011
+set protocols bgp 65001 neighbor 172.16.117.11 timers keepalive 4
+set protocols bgp 65001 neighbor 172.16.117.11 timers holdtime 12
+set protocols bgp 65001 neighbor 172.16.117.11 password VMware1!

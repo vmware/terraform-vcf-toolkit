@@ -1,0 +1,44 @@
+#cloud-config
+vyos_config_commands:
+  # Global Config
+  - set interfaces ethernet eth1 mtu 8800
+  # Rack1 Networks
+  - set interfaces ethernet eth1 vif 1000
+  - set interfaces ethernet eth1 vif 1000 description 'rack1_esxi'
+  - set interfaces ethernet eth1 vif 1000 address '172.16.100.1/24'
+  - set interfaces ethernet eth1 vif 1000 mtu 8800
+  #
+  - set interfaces ethernet eth1 vif 1001
+  - set interfaces ethernet eth1 vif 1001 description 'rack1_vmotion'
+  - set interfaces ethernet eth1 vif 1001 address '172.16.101.1/24'
+  - set interfaces ethernet eth1 vif 1001 mtu 8800
+  #
+  - set interfaces ethernet eth1 vif 1002
+  - set interfaces ethernet eth1 vif 1002 description 'rack1_vsan'
+  - set interfaces ethernet eth1 vif 1002 address '172.16.102.1/24'
+  - set interfaces ethernet eth1 vif 1002 mtu 8800
+  #
+  - set interfaces ethernet eth1 vif 1003
+  - set interfaces ethernet eth1 vif 1003 description 'rack1_tep'
+  - set interfaces ethernet eth1 vif 1003 address '172.16.103.1/24'
+  - set interfaces ethernet eth1 vif 1003 mtu 8800
+  #
+  - set interfaces ethernet eth1 vif 1004
+  - set interfaces ethernet eth1 vif 1004 description 'rack1_vm_management'
+  - set interfaces ethernet eth1 vif 1004 address '172.16.104.1/24'
+  - set interfaces ethernet eth1 vif 1004 mtu 8800
+  #
+  - set interfaces ethernet eth1 vif 1005
+  - set interfaces ethernet eth1 vif 1005 description 'rack1_edge_tep'
+  - set interfaces ethernet eth1 vif 1005 address '172.16.105.1/24'
+  - set interfaces ethernet eth1 vif 1005 mtu 8800
+  #
+  - set interfaces ethernet eth1 vif 1006
+  - set interfaces ethernet eth1 vif 1006 description 'bgp_1'
+  - set interfaces ethernet eth1 vif 1006 address '172.16.106.1/24'
+  - set interfaces ethernet eth1 vif 1006 mtu 8800
+  #
+  - set interfaces ethernet eth1 vif 1007
+  - set interfaces ethernet eth1 vif 1007 description 'bgp_2'
+  - set interfaces ethernet eth1 vif 1007 address '172.16.107.1/24'
+  - set interfaces ethernet eth1 vif 1007 mtu 8800

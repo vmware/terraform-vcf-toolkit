@@ -1,0 +1,323 @@
+# --------------------------------------------------------------- #
+# Edge-Cluster Deployment - Fault-Domain Aware Edge-VM Placement
+# [] Creates NSX Edge-VMs and places them in the defined Fault-Domain(s)
+#   - Defines and adds nodes to a new Edge-Cluster
+# [] Creates Distributed Port-Groups (trunks)
+# [] Creates VLAN Transport-Zone for BGP Uplinks
+# [] Creates one (1) or more Static IP Pool(s) with ranges
+# [] Creates one (1) Uplink-Profile
+# [] Leverages Standard Host-Switch Mode
+#
+# Steven Tumolo - VMW by Broadcom
+# Version | 1.2
+# --------------------------------------------------------------- #
+terraform {
+  required_providers {
+    nsxt = {
+      source  = "vmware/nsxt"
+      version = "3.8.0"
+    }
+    vsphere = {
+      source = "hashicorp/vsphere"
+    }
+    time = {
+      source = "hashicorp/time"
+    }
+  }
+}
+
+# --------------------------------------------------------------- #
+# vCenter Objects
+# --------------------------------------------------------------- #
+data "vsphere_datacenter" "datacenter" {
+  for_each = var.fault_domain
+  name     = each.value.datacenter
+}
+
+data "vsphere_compute_cluster" "cluster" {
+  for_each      = var.fault_domain
+  name          = each.value.cluster
+  datacenter_id = data.vsphere_datacenter.datacenter[each.key].id
+}
+
+data "vsphere_datastore" "datastore" {
+  for_each      = var.fault_domain
+  name          = each.value.datastore
+  datacenter_id = data.vsphere_datacenter.datacenter[each.key].id
+}
+
+data "vsphere_distributed_virtual_switch" "dvs" {
+  for_each      = var.fault_domain
+  name          = each.value.dvs
+  datacenter_id = data.vsphere_datacenter.datacenter[each.key].id
+}
+/*
+resource "vsphere_resource_pool" "resource_pool" {
+  for_each = var.fault_domain
+  name                    = each.value.resource_pool
+  parent_resource_pool_id = data.vsphere_compute_cluster.cluster[each.key].resource_pool_id
+}
+
+resource "vsphere_folder" "vm_folder" {
+  for_each = var.fault_domain
+  path          = "edge-vms"
+  type          = "vm"
+  datacenter_id = data.vsphere_datacenter.datacenter[each.key].id
+}
+*/
+# --------------------------------------------------------------- #
+# Create Port-Groups for Edge-VM Connectivity
+# --------------------------------------------------------------- #
+resource "vsphere_distributed_port_group" "mgmt_pg" {
+  for_each                        = data.vsphere_compute_cluster.cluster
+  name                            = "${each.value.name}-${var.port_groups.mgmt.0}"
+  distributed_virtual_switch_uuid = data.vsphere_distributed_virtual_switch.dvs[each.key].id
+  active_uplinks                  = ["uplink1", "uplink2"]
+  vlan_id                         = var.port_groups.mgmt.1
+}
+
+resource "vsphere_distributed_port_group" "tor_a" {
+  for_each                        = data.vsphere_compute_cluster.cluster
+  name                            = "${each.value.name}-${var.port_groups.tor_a}"
+  distributed_virtual_switch_uuid = data.vsphere_distributed_virtual_switch.dvs[each.key].id
+  active_uplinks                  = ["uplink1"]
+  standby_uplinks                 = ["uplink2"]
+
+  vlan_range {
+    min_vlan = 0
+    max_vlan = 4094
+  }
+}
+
+resource "vsphere_distributed_port_group" "tor_b" {
+  for_each                        = data.vsphere_compute_cluster.cluster
+  name                            = "${each.value.name}-${var.port_groups.tor_b}"
+  distributed_virtual_switch_uuid = data.vsphere_distributed_virtual_switch.dvs[each.key].id
+  active_uplinks                  = ["uplink2"]
+  standby_uplinks                 = ["uplink1"]
+
+  vlan_range {
+    min_vlan = 0
+    max_vlan = 4094
+  }
+}
+
+# --------------------------------------------------------------- #
+# NSX-T Configuration - Compute Manager
+# --------------------------------------------------------------- #
+data "nsxt_compute_manager" "compute_manager" {
+  for_each     = var.fault_domain
+  display_name = each.value.compute_manager
+}
+
+# --------------------------------------------------------------- #
+# NSX-T Configuration - Transport Zone
+# --------------------------------------------------------------- #
+data "nsxt_policy_transport_zone" "tz_overlay" {
+  display_name = var.transport_zones.overlay
+}
+
+resource "nsxt_policy_transport_zone" "tz_uplinks" {
+  display_name   = var.transport_zones.vlan
+  transport_type = "VLAN_BACKED"
+
+  uplink_teaming_policy_names = [
+    "TOR-1",
+    "TOR-2"
+  ]
+  depends_on = [nsxt_policy_uplink_host_switch_profile.edge_uplink_profile]
+}
+
+# --------------------------------------------------------------- #
+# NSX-T Configuration - IP Pool
+# Update to accomodate fault_domain awareness
+# --------------------------------------------------------------- #
+resource "nsxt_policy_ip_pool" "ip_pool" {
+  display_name = var.ip_pool.name
+}
+
+data "nsxt_policy_realization_info" "ip_pool" {
+  path = nsxt_policy_ip_pool.ip_pool.path
+}
+
+resource "nsxt_policy_ip_pool_static_subnet" "ip_pool_ranges" {
+  display_name = var.ip_pool.name
+  pool_path    = nsxt_policy_ip_pool.ip_pool.path
+  cidr         = var.ip_pool.cidr
+  gateway      = var.ip_pool.gateway
+
+  allocation_range {
+    start = var.ip_pool.start_ip
+    end   = var.ip_pool.end_ip
+  }
+}
+
+# --------------------------------------------------------------- #
+# NSX-T Configuration - Host Switch Profile
+# Update to accomodate fault_domain awareness
+# --------------------------------------------------------------- #
+resource "nsxt_policy_uplink_host_switch_profile" "edge_uplink_profile" {
+  display_name = var.uplink_profile.name
+
+  mtu            = var.uplink_profile.mtu
+  transport_vlan = var.uplink_profile.vlan
+  overlay_encap  = "GENEVE"
+
+  teaming {
+    active {
+      uplink_name = "uplink1"
+      uplink_type = "PNIC"
+    }
+    active {
+      uplink_name = "uplink2"
+      uplink_type = "PNIC"
+    }
+    policy = "LOADBALANCE_SRCID"
+  }
+
+  named_teaming {
+    active {
+      uplink_name = "uplink1"
+      uplink_type = "PNIC"
+    }
+    policy = "FAILOVER_ORDER"
+    name   = "TOR-1"
+  }
+
+  named_teaming {
+    active {
+      uplink_name = "uplink2"
+      uplink_type = "PNIC"
+    }
+    policy = "FAILOVER_ORDER"
+    name   = "TOR-2"
+  }
+}
+
+# --------------------------------------------------------------- #
+# NSX-T Configuration - Edge-Node VMs
+# --------------------------------------------------------------- #
+data "nsxt_transport_node_realization" "edge_vms" {
+  depends_on = [nsxt_edge_transport_node.edge_nodes]
+
+  for_each = nsxt_edge_transport_node.edge_nodes
+  id       = nsxt_edge_transport_node.edge_nodes[each.key].id
+  delay    = 60
+  timeout  = 1800
+}
+
+resource "nsxt_edge_transport_node" "edge_nodes" {
+  depends_on = [
+    #vsphere_resource_pool.resource_pool, 
+    nsxt_policy_ip_pool.ip_pool,
+    nsxt_policy_uplink_host_switch_profile.edge_uplink_profile,
+    data.nsxt_policy_transport_zone.tz_overlay,
+    nsxt_policy_transport_zone.tz_uplinks,
+    vsphere_distributed_port_group.mgmt_pg,
+    vsphere_distributed_port_group.tor_a,
+    vsphere_distributed_port_group.tor_b
+  ]
+
+  for_each = var.edge_vms
+
+  description  = "${var.edge_cluster_name} Edge-Node"
+  display_name = each.key
+
+  standard_host_switch {
+    host_switch_profile = [nsxt_policy_uplink_host_switch_profile.edge_uplink_profile.path]
+
+    ip_assignment {
+      assigned_by_dhcp = false
+      static_ip_pool   = data.nsxt_policy_realization_info.ip_pool.realized_id
+    }
+
+    transport_zone_endpoint {
+      transport_zone = data.nsxt_policy_transport_zone.tz_overlay.id
+    }
+    transport_zone_endpoint {
+      transport_zone = nsxt_policy_transport_zone.tz_uplinks.realized_id
+    }
+
+    pnic {
+      device_name = "fp-eth0"
+      uplink_name = each.value.uplinks.0
+    }
+    pnic {
+      device_name = "fp-eth1"
+      uplink_name = each.value.uplinks.1
+    }
+  }
+
+  deployment_config {
+    form_factor = each.value.form_factor
+
+    node_user_settings {
+      cli_username   = "admin"
+      cli_password   = each.value.passwords.admin
+      audit_username = "audit"
+      audit_password = each.value.passwords.audit
+      root_password  = each.value.passwords.root
+    }
+
+    vm_deployment_config {
+      management_network_id   = vsphere_distributed_port_group.mgmt_pg[each.value.fault_domain].id
+      data_network_ids        = [vsphere_distributed_port_group.tor_a[each.value.fault_domain].id, vsphere_distributed_port_group.tor_b[each.value.fault_domain].id]
+      compute_id              = data.vsphere_compute_cluster.cluster[each.value.fault_domain].id
+      storage_id              = data.vsphere_datastore.datastore[each.value.fault_domain].id
+      vc_id                   = data.nsxt_compute_manager.compute_manager[each.value.fault_domain].id
+      default_gateway_address = [each.value.mgmt_gw]
+
+      management_port_subnet {
+        ip_addresses  = [element(split("/", each.value.mgmt_ip), 0)]
+        prefix_length = element(split("/", each.value.mgmt_ip), 1)
+      }
+    }
+  }
+
+  node_settings {
+    hostname             = each.key
+    allow_ssh_root_login = true
+    enable_ssh           = true
+    dns_servers          = var.dns
+    ntp_servers          = var.ntp
+    search_domains       = var.search_domains
+  }
+}
+
+# --------------------------------------------------------------- #
+# NSX-T Configuration - Edge-Cluster
+# --------------------------------------------------------------- #
+
+resource "nsxt_edge_cluster" "edge_cluster" {
+  depends_on   = [data.nsxt_transport_node_realization.edge_vms, ]
+  display_name = var.edge_cluster_name
+
+  dynamic "member" {
+    for_each = nsxt_edge_transport_node.edge_nodes
+    content {
+      display_name      = member.key
+      transport_node_id = nsxt_edge_transport_node.edge_nodes[member.key].id
+    }
+  }
+}
+
+# --------------------------------------------------------------- #
+# vSphere DRS configuration
+#   - VM Affinity to Host-Group
+# --------------------------------------------------------------- #
+data "vsphere_virtual_machine" "edges" {
+  depends_on = [nsxt_edge_cluster.edge_cluster]
+
+  for_each      = var.edge_vms
+  name          = each.key
+  datacenter_id = data.vsphere_datacenter.datacenter[each.value.fault_domain].id
+}
+
+resource "vsphere_compute_cluster_vm_anti_affinity_rule" "edge_anti_affinity_rule" {
+  depends_on = [nsxt_edge_transport_node.edge_nodes]
+
+  for_each            = var.edge_vms
+  name                = "${var.edge_cluster_name}_anti_affinity_rule"
+  compute_cluster_id  = data.vsphere_compute_cluster.cluster[each.value.fault_domain].id
+  virtual_machine_ids = [data.vsphere_virtual_machine.edges[each.key].id]
+}
