@@ -1,5 +1,3 @@
-<img src = "./docs/images/bcom_header.png" width=100%>
-
 # VMware Professional Services - IaC Toolkit for Terraform - 1.3<img src = "./docs/images/tf.png" height=30>
 
 This is a toolkit for deploying VMware Platforms for customer ready consumable infrastructure.  It includes prescriptive deployment patterns and topologies for automated deployment of VCF and NSX configurations.
