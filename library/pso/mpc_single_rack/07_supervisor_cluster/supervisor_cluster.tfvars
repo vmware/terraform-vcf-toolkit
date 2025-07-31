@@ -1,6 +1,6 @@
-vcenter_server   = "lvn-mgc1-vc1.lvn.broadcom.net"
+vcenter_server   = "vcenter.example.com"
 vcenter_username = "administrator@vsphere.local"
-vcenter_password = "Vmware@234##"
+vcenter_password = "P@ssword1!"
 #
 datacenter          = "mgmt_dc"
 cluster             = "mgmt_cluster"

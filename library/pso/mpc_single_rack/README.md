@@ -37,7 +37,7 @@ brew install git
 Using an IDE like VS Code, clone the project repository.
 
 ```sh
-git clone https://github-vcf.devops.broadcom.net/PSO/Terraform_Toolkit.git
+git clone https://github.com/vmware/terraform-vcf-toolkit.git
 ```
 
 # Execution

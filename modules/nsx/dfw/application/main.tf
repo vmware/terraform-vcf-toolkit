@@ -18,9 +18,9 @@ terraform {
 }
 provider "nsxt" {
   # Basic Auth
-  host     = "lvn-mgc1-nsx1.lvn.broadcom.net"
+  host     = "vcenter.example.com"
   username = "admin"
-  password = "Vmware@234##"
+  password = "P@ssword1!"
 
   allow_unverified_ssl  = true # Required for self-signed
   max_retries           = 10

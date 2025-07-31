@@ -13,8 +13,8 @@ terraform {
 # --------------------------------------------------------------- #
 provider "vsphere" {
   user                 = "administrator@vsphere.local"
-  password             = "Vmware@234##"
-  vsphere_server       = "lvn-mgc1-vc1.lvn.broadcom.net"
+  password             = "P@ssword1!"
+  vsphere_server       = "vcenter.example.com"
   allow_unverified_ssl = true # Required for self-signed
 }
 # --------------------------------------------------------------- #

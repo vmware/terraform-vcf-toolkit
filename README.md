@@ -123,7 +123,7 @@ $ sudo apt-get install git-all
 Using an IDE like VS Code, clone the project repository.
 
 ``` sh
-$ git clone https://gitlab.eng.vmware.com/stumolo/PSO_TF_Toolkit.git
+$ git clone https://github.com/vmware/terraform-vcf-toolkit.git
 ```
 
 ### Step 4

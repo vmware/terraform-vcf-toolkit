@@ -1,6 +1,6 @@
-vcenter_server   = "lvn-mgc1-vc1.lvn.broadcom.net"
+vcenter_server   = "vcenter.example.com"
 vcenter_username = "administrator@vsphere.local"
-vcenter_password = "Vmware@234##"
+vcenter_password = "P@ssword1"
 
 tag_category = {
   name         = "tanzu_k8s"
@@ -17,7 +17,7 @@ storage_policy = {
   tag_name          = "tanzu"
   name              = "tanzu_storage_policy"
   datastore = {
-    name       = "lvn-lm2-m1c1-vsan"
-    datacenter = "lvn-lm2-dc"
+    name       = "example-vsan"
+    datacenter = "example-dc"
   }
 }
