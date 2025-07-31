@@ -1,6 +1,4 @@
-<img src = "../../../docs/images/bcom_header.png" width=100%>
-
-# VMW Professional Services Workflow for VCF v1.0
+# Workflow for VMware Cloud Foundation v1.0
 
 This library item is a collection of modules in an organized workflow to deploy VMware Cloud Foundation v5.2.1 with Terraform.  This workflow will guide users through the following stages:
 
