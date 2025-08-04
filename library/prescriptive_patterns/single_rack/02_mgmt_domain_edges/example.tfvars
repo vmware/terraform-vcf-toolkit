@@ -1,4 +1,4 @@
-sddc_manager_host     = "sddc.mpc.lab1"
+sddc_manager_host     = "sddc.sddc.lab"
 sddc_manager_username = "admin"
 sddc_manager_password = "VMware1!VMware1!"
 
@@ -18,7 +18,7 @@ edge_cluster = {
 
 edge_nodes = {
   vcf-edge-1 = {
-    fqdn                 = "vcf-edge-1.mpc.lab1"
+    fqdn                 = "vcf-edge-1.sddc.lab"
     compute_cluster_name = "mgmt_cluster"
     mgmt_ip              = "172.16.104.20/24"
     mgmt_gw              = "172.16.104.1"
@@ -49,7 +49,7 @@ edge_nodes = {
   }
 
   vcf-edge-2 = {
-    fqdn                 = "vcf-edge-2.mpc.lab1"
+    fqdn                 = "vcf-edge-2.sddc.lab"
     compute_cluster_name = "mgmt_cluster"
     mgmt_ip              = "172.16.104.21/24"
     mgmt_gw              = "172.16.104.1"

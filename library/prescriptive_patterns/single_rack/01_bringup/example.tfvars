@@ -1,21 +1,21 @@
 # --------------------------------------------------------------- #
 # Cloudbuilder Authentication
 # --------------------------------------------------------------- #
-cloud_builder_host     = "cloudbuilder.mpc.lab1"
+cloud_builder_host     = "cloudbuilder.sddc.lab"
 cloud_builder_username = "admin"
 cloud_builder_password = "VMware1!VMware1!"
 # --------------------------------------------------------------- #
 # Environment
 # --------------------------------------------------------------- #
-domain_suffix = "mpc.lab1"
+domain_suffix = "sddc.lab"
 dns           = ["172.16.100.5"]
 ntp           = ["172.16.100.5"]
 #
 license_keys = {
-  nsx     = "MM4L3-DLL93-789CT-0LA26-0WW57"
-  vcenter = "H149L-6C1EP-58VNR-0XAHH-3JH2H"
-  vsan    = "D14CM-JUF5H-D8KQ9-0UJUE-EHYK0"
-  esxi    = "A549L-0XP9H-58LNT-0TWUM-818JH"
+  nsx     = ""
+  vcenter = ""
+  vsan    = ""
+  esxi    = ""
 }
 #
 ceip = "false"
@@ -72,7 +72,7 @@ network_pool_mgmt_tep = {
 # vCenter
 # --------------------------------------------------------------- #
 psc_domain = {
-  name           = "mpc.lab1"
+  name           = "sddc.lab"
   admin_password = "VMware1!VMware1!"
 }
 #
@@ -80,7 +80,7 @@ vcenter = {
   size          = "small"
   name          = "mgmt-vc"
   ip            = "172.16.104.12"
-  datacenter    = "mpc_lab_dc01"
+  datacenter    = "sddc_lab_dc01"
   root_password = "VMware1!VMware1!"
 
 }
@@ -95,7 +95,7 @@ nsx_cluster_appliances = {
 #
 nsx_cluster_settings = {
   vip  = "172.16.104.13"
-  fqdn = "mgmt-nsx.mpc.lab1"
+  fqdn = "mgmt-nsx.sddc.lab"
   passwords = {
     admin = "VMware1!VMware1!"
     root  = "VMware1!VMware1!"
@@ -139,8 +139,8 @@ dvs = {
 standard_switch_name = "vSwitch0"
 #
 hosts = {
-  "esxi1-r1.mpc.lab1" = ["172.16.100.11", "255.255.255.0", "172.16.100.1", "VMware1!VMware1!"]
-  "esxi2-r1.mpc.lab1" = ["172.16.100.12", "255.255.255.0", "172.16.100.1", "VMware1!VMware1!"]
-  "esxi3-r1.mpc.lab1" = ["172.16.100.13", "255.255.255.0", "172.16.100.1", "VMware1!VMware1!"]
-  "esxi4-r1.mpc.lab1" = ["172.16.100.14", "255.255.255.0", "172.16.100.1", "VMware1!VMware1!"]
+  "esxi1-r1.sddc.lab" = ["172.16.100.11", "255.255.255.0", "172.16.100.1", "VMware1!VMware1!"]
+  "esxi2-r1.sddc.lab" = ["172.16.100.12", "255.255.255.0", "172.16.100.1", "VMware1!VMware1!"]
+  "esxi3-r1.sddc.lab" = ["172.16.100.13", "255.255.255.0", "172.16.100.1", "VMware1!VMware1!"]
+  "esxi4-r1.sddc.lab" = ["172.16.100.14", "255.255.255.0", "172.16.100.1", "VMware1!VMware1!"]
 }

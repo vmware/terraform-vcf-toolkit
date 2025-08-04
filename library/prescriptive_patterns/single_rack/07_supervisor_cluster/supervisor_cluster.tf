@@ -56,7 +56,7 @@ module "supervisor_cluster" {
     worker      = "172.16.100.5"
   }
   #
-  search_domains = ["mpc.lab1"]
+  search_domains = ["sddc.lab"]
   k8s_api_size   = "MEDIUM"
   k8s_networks_ext = {
     ingress_net = "192.168.100.0/24"

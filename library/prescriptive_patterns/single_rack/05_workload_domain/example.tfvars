@@ -1,7 +1,7 @@
 # --------------------------------------------------------------- #
 # Cloudbuilder Authentication
 # --------------------------------------------------------------- #
-sddc_manager_host     = "sddc.mpc.lab1"
+sddc_manager_host     = "sddc.sddc.lab"
 sddc_manager_username = "administrator@mpc.lab1"
 sddc_manager_password = "VMware1!VMware1!"
 # --------------------------------------------------------------- #
@@ -10,10 +10,10 @@ sddc_manager_password = "VMware1!VMware1!"
 domain_suffix = "mpc.lab1"
 #
 license_keys = {
-  nsx     = "MM4L3-DLL93-789CT-0LA26-0WW57"
-  vcenter = "H149L-6C1EP-58VNR-0XAHH-3JH2H"
-  vsan    = "D14CM-JUF5H-D8KQ9-0UJUE-EHYK0"
-  esxi    = "A549L-0XP9H-58LNT-0TWUM-818JH"
+  nsx     = ""
+  vcenter = ""
+  vsan    = ""
+  esxi    = ""
 }
 #
 vm_management_network = {
@@ -27,7 +27,7 @@ workload_domain_name = "wld01"
 # --------------------------------------------------------------- #
 vcenter = {
   name          = "wld01-vc"
-  fqdn          = "wld01-vc.mpc.lab1"
+  fqdn          = "wld01-vc.sddc.lab"
   ip            = "172.16.104.25"
   root_password = "VMware1!VMware1!"
   size          = "small"
@@ -44,7 +44,7 @@ nsx_cluster_appliances = {
 #
 nsx_cluster_settings = {
   vip  = "172.16.104.26"
-  fqdn = "wld01-nsx.mpc.lab1"
+  fqdn = "wld01-nsx.sddc.lab"
   passwords = {
     admin = "VMware1!VMware1!"
     audit = "VMware1!VMware1!"
@@ -68,18 +68,18 @@ dvs = {
   mtu     = "1700"
   uplinks = ["vmnic0", "vmnic1"]
 }
-#
+# At the time, VCF Provider does not/did not support data resource for discovery.
 wld_hosts = {
-  "esxi5-r1.mpc.lab1" = {
+  "esxi5-r1.sddc.lab" = {
     uuid = "adc8f7b5-f993-4a27-957c-c69772976973"
   host_uplinks = ["vmnic0", "vmnic1"] },
-  "esxi6-r1.mpc.lab1" = {
+  "esxi6-r1.sddc.lab" = {
     uuid = "a24163c4-691b-407c-9d58-d5a133cf3821"
   host_uplinks = ["vmnic0", "vmnic1"] },
-  "esxi7-r1.mpc.lab1" = {
+  "esxi7-r1.sddc.lab" = {
     uuid = "fb63bc25-e989-4b08-8a10-b3af861b3269"
   host_uplinks = ["vmnic0", "vmnic1"] },
-  "esxi8-r1.mpc.lab1" = {
+  "esxi8-r1.sddc.lab" = {
     uuid = "03dc0424-3238-467c-b831-242a14a7d065"
   host_uplinks = ["vmnic0", "vmnic1"] }
 }
