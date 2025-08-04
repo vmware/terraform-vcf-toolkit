@@ -35,7 +35,7 @@ resource "redfish_virtual_media" "esxi_iso" {
     ssl_insecure = true
   }
 
-  image ="http://10.70.13.12/VMware-VMvisor-Installer-8.0U3-24022510.x86_64.iso"
+  image ="http://192.168.1.20/VMware-VMvisor-Installer-8.0U3-24022510.x86_64.iso"
   transfer_method = "Stream"
   transfer_protocol_type = "HTTP"
   write_protected = true
