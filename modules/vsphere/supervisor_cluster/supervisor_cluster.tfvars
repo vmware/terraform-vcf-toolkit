@@ -1,5 +1,5 @@
-vcenter_server   = "mgmt-vc.mpc.lab1"
-vcenter_username = "administrator@mpc.lab1"
+vcenter_server   = "mgmt-vc.sddc.lab"
+vcenter_username = "administrator@sddc.lab"
 vcenter_password = "VMware1!VMware1!"
 #
 datacenter          = "mgmt_dc"
