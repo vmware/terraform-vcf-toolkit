@@ -45,7 +45,7 @@ variable "fault_domain" {
 # --------------------------------------------------------------- #
 fault_domain = {
   fd1 = {
-    compute_manager = "wld01-vc.mpc.lab1"
+    compute_manager = "wld01-vc.sddc.lab"
     datacenter      = "dc01"
     cluster         = "cl01"
     datastore       = "cl01-vsan"
@@ -82,14 +82,14 @@ edge_vms = {
 # --------------------------------------------------------------- #
 fault_domain = {
   fd1 = {
-    compute_manager = "wld01-vc.mpc.lab1"
+    compute_manager = "wld01-vc.sddc.lab"
     datacenter      = "dc01"
     cluster         = "cl01"
     datastore       = "cl01-vsan"
     dvs             = "cl01-vds"
   },
   fd2 = {
-    compute_manager = "wld01-vc.mpc.lab1"
+    compute_manager = "wld01-vc.sddc.lab"
     datacenter      = "dc01"
     cluster         = "cl02"
     datastore       = "cl02-vsan"

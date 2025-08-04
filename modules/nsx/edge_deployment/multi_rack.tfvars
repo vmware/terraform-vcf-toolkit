@@ -4,7 +4,7 @@
 # --------------------------------------------------------------- #
 fault_domain = {
   fd1 = {
-    compute_manager = "wld01-vc.mpc.lab1"
+    compute_manager = "wld01-vc.sddc.lab"
     datacenter      = "dc01"
     cluster         = "cl01"
     datastore       = "cl01-vsan"
@@ -13,7 +13,7 @@ fault_domain = {
     #folder        = optional(string, "edge_vms")
   },
   fd2 = {
-    compute_manager = "wld01-vc.mpc.lab1"
+    compute_manager = "wld01-vc.sddc.lab"
     datacenter      = "dc01"
     cluster         = "cl02"
     datastore       = "cl02-vsan"
@@ -25,7 +25,7 @@ fault_domain = {
 # --------------------------------------------------------------- #
 # NSX environment variables
 # --------------------------------------------------------------- #
-search_domains = ["mpc.lab1"]
+search_domains = ["sddc.lab"]
 dns            = ["172.16.100.5"]
 ntp            = ["172.16.100.5"]
 
