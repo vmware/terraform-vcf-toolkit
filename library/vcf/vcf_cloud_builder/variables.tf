@@ -1,0 +1,12 @@
+variable "vcenter_username" {}
+variable "vcenter_password" {}
+variable "vcenter_server" {}
+variable "local_ovf_path" {}
+variable "datacenter" {}
+variable "deployment_host" {}
+variable "cluster" {}
+variable "datastore" {}
+variable "vds" {}
+variable "port_group" {}
+variable "cloud_builder_settings" {}
+variable "cloud_builder_passwords" {}

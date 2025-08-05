@@ -1,0 +1,28 @@
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# terraform plans
+*.terraform
+*tfplan*
+
+# terraform executable
+terraform.exe
+
+#providers
+**.exe
+
+# terraform lock files
+*.terraform.lock.hcl
+
+# Mac OS Directory Services
+**/.DS_Store
+
+# Code Stats
+./VSCodeCounter
+
+# VS Code
+*.code-workspace

@@ -1,0 +1,27 @@
+# --------------------------------------------------------------- #
+# Authentication Variables
+# --------------------------------------------------------------- #
+variable "vcenter_username" {}
+variable "vcenter_password" {}
+variable "vcenter_server" {}
+variable "nsx_manager" {}
+variable "nsx_username" {}
+variable "nsx_password" {}
+# --------------------------------------------------------------- #
+# Discovery Variables
+# --------------------------------------------------------------- #
+variable "datacenter" {}
+variable "cluster" {}
+variable "storage_policy_name" {}
+variable "content_library" {}
+variable "dvs" {}
+variable "edge_cluster" {}
+# --------------------------------------------------------------- #
+# Supervisor Cluster Variables
+# --------------------------------------------------------------- #
+variable "management_network" {}
+variable "dns" {}
+variable "search_domains" {}
+variable "k8s_api_size" {}
+variable "k8s_networks_ext" {}
+variable "pod_net" {}
