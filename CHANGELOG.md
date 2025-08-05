@@ -1,5 +1,3 @@
-<img src = "./docs/images/bcom_header.png" width=100%>
-
 # <span style="color:lightgreen">Version 1.3</span> - In Progress
 
 This release focuses on VCF 5.2.1:
