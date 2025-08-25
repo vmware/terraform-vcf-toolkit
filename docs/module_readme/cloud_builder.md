@@ -18,7 +18,7 @@ Now that we have a copy of the files, we're going to open the `providers.tf` fil
 terraform {
   required_providers {
     vsphere = {
-      source  = "hashicorp/vsphere"
+      source  = "vmware/vsphere"
       version = "~>2.6.1"
     }
   }
@@ -28,7 +28,7 @@ terraform {
 - **terraform { ... }**: This block specifies the Terraform settings and provider configurations.
   - **required_providers**: Defines the external providers required by this Terraform configuration.
   - **vsphere**: Specifies that the `vsphere` provider is needed, which allows Terraform to interact with VMware vSphere resources.
-    - **source**: The source for the provider, in this case, `hashicorp/vsphere`, which pulls the official vSphere provider from HashiCorp’s registry.
+    - **source**: The source for the provider, in this case, `vmware/vsphere`, which pulls the official vSphere provider from HashiCorp’s registry.
     - **version**: Defines the required version of the provider, with `~>2.6.1` meaning any version starting from `2.6.1` and less than `3.0.0`.
 
 ### vSphere Provider Configuration

@@ -1,4 +1,4 @@
-# <img src = "./docs/images/tf.png" height=30> VMware Cloud Foundation Terraform Toolkit - 1.3
+# <img src = "./docs/images/tf.png" height=30> VMware Cloud Foundation Terraform Toolkit - 1.4
 
 This is a toolkit for deploying VMware Platforms for customer ready consumable infrastructure.  It includes prescriptive deployment patterns and topologies for automated deployment of VCF and NSX configurations.
 
@@ -23,7 +23,7 @@ Terraform Providers:
 
 - [VCF](https://registry.terraform.io/providers/vmware/vcf/latest) for Cloud Builder deployment, SDDC Manager, Management Domain creation and Workload Domain creation.
 - [NSX](https://registry.terraform.io/providers/vmware/nsxt/latest) for NSX Edge-Cluster deployment, Logical Routing and Firewall configuration(s).
-- [vSphere](https://registry.terraform.io/providers/hashicorp/vsphere/latest) for meta data management, DRS and administration (Folders, Resource-Pools and Port-Groups). 
+- [vSphere](https://registry.terraform.io/providers/vmware/vsphere/latest) for meta data management, DRS and administration (Folders, Resource-Pools and Port-Groups).
   
 ## Single Rack Model
 

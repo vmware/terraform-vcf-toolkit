@@ -9,6 +9,9 @@
 *.terraform
 *tfplan*
 
+# terraform development vars
+**/dev_*.tfvars
+
 # terraform executable
 terraform.exe
 

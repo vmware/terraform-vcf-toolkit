@@ -17,7 +17,7 @@ terraform {
       version = "3.6.2"
     }
     vsphere = {
-      source = "hashicorp/vsphere"
+      source = "vmware/vsphere"
     }
     time = {
       source  = "hashicorp/time"

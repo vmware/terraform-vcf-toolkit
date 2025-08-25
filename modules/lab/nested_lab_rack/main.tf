@@ -1,5 +1,5 @@
 # --------------------------------------------------------------- #
-# Nested ESXi host deployment for VMW Pro Cloud Services Lab
+# Nested ESXi host deployment for a VCF Nested Lab
 # [] Deploys # of ESXi VMs
 #
 # Steven Tumolo - VMW by Broadcom
