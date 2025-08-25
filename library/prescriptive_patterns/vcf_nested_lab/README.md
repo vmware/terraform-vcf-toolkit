@@ -2,7 +2,7 @@
 
 This library item will deploy the neccessary infrastructure to configure a nested or POC instance of VCF.
 
-<img src = "../../../images/vcf_nested_lab_workflow.png" width=100%>
+<img src = "../../../docs/images/vcf_nested_lab_workflow.png" width=100%>
 
 ## Overview
 
@@ -18,10 +18,9 @@ The deployment _does not_ include:
 Any VCF bringup plan may be run after these components are deployed.  Examples can be found in /library/vcf/bringup*
 
 ## Required Software 
-1. VCF Cloud Builder 5.2.1 - 24307856
-2. VMware ESXi 8.0.3b - 24280767
-    - FLINGs - Nested Appliances (via William Lam) - https://community.broadcom.com/flings/home 
-
+1. Nested VMware ESXi Appliance - [Link](https://support.broadcom.com/group/ecx/productdownloads?subfamily=Flings)
+2. VCF Installer - [Link](https://support.broadcom.com/group/ecx/productfiles?subFamily=VMware%20Cloud%20Foundation&displayGroup=VMware%20Cloud%20Foundation%209&release=9.0.0.0&os=&servicePk=&language=EN)
+   
 ## Optional Software 
 1. VyOS - v1.2.9-S1 (cloud-init)
 
