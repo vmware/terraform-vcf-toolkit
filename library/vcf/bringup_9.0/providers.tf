@@ -14,7 +14,7 @@ terraform {
 # vCenter Settings
 # --------------------------------------------------------------- #
 provider "vcf" {
-installer_host = "vcf-installer.jpmc.lab"
+installer_host = "vcf-installer.fqdn"
 installer_password = "VMware1!VMware1!"
 installer_username = "admin"
 allow_unverified_tls = true # Required for self-signed
