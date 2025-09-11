@@ -140,13 +140,6 @@ variable "network_pool_mgmt_tep" {
 # --------------------------------------------------------------- #
 # Management Domain - Appliance Variables
 # --------------------------------------------------------------- #
-variable "psc_domain" {
-  description = "Single Sign-On Settings."
-  type = object({
-    name           = optional(string, "vsphere.local")
-    admin_password = optional(string, "VMware1!VMware1!")
-  })
-}
 
 variable "vcenter" {
   description = "vCenter appliance settings for the Management Domain."
