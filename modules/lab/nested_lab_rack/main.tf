@@ -5,7 +5,14 @@
 # Steven Tumolo - VMW by Broadcom
 # Version | 2.0
 # --------------------------------------------------------------- #
-
+terraform {
+  required_providers {
+    vsphere = {
+      source  = "vmware/vsphere"
+      version = "2.15.0"
+    }
+  }
+}
 # --------------------------------------------------------------- #
 # vCenter Configuration
 # --------------------------------------------------------------- #
@@ -67,8 +74,11 @@ resource "vsphere_virtual_machine" "nested_esxi" {
   enable_logging      = true
   nested_hv_enabled   = true
 
+  firmware = "efi"
+
   # Compute Configuration
-  guest_id             = "vmkernel65Guest"
+  #guest_id             = "vmkernel65Guest"
+  guest_id             = "vmkernel8Guest" #required for 9.0
   num_cpus             = var.host_cpus  #16
   num_cores_per_socket = var.host_cores #8
   memory               = var.host_mem   #131076
@@ -91,7 +101,7 @@ resource "vsphere_virtual_machine" "nested_esxi" {
   }
   disk {
     label            = "cache"
-    size             = 16
+    size             = var.cache_disk_size
     thin_provisioned = true
     unit_number      = 1
   }

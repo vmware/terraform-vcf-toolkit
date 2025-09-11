@@ -110,11 +110,17 @@ variable "passwords" {
   sensitive = true
 }
 
-// Data Disk Size
+// Disk Sizes 
+variable "cache_disk_size" {
+  description = "Size in GB of the vSAN cache disk. Required for OSA"
+  type        = number
+  default     = 500
+}
+
 variable "data_disk_size" {
   description = "Size in GB of the vSAN data disk."
   type        = number
-  default     = 400
+  default     = 500
 }
 
 // CPU Info

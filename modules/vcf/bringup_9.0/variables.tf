@@ -152,47 +152,39 @@ variable "vcenter" {
   description = "vCenter appliance settings for the Management Domain."
   type = object({
     size          = optional(string, "medium") #tiny, small, medium, large, xlarge
-    name          = string
-    ip            = string
-    datacenter    = string
+    hostname      = string
     root_password = string
+    storage_size  = optional(string, "lstorage")
   })
 }
 
 variable "nsx_cluster_appliances" {
   description = "NSX appliance cluster names."
-  type = object({
-    vm1 = list(string)
-    vm2 = list(string)
-    vm3 = list(string)
-  })
+  type        = list(string)
 }
 
 variable "nsx_cluster_settings" {
   description = "NSX appliance cluster settings for the Management Domain."
   type = object({
-    size = optional(string, "medium") # medium or large
-    vip  = string
-    fqdn = string
+    size     = optional(string, "medium") # medium or large
+    vip_fqdn = string
     passwords = object({
       admin = string
       root  = string
       audit = string
     })
-    transport_zone_name       = string
-    transport_zone_vlan       = number
-    transport_zone_port_group = optional(string)
+    transport_zone_vlan = number
   })
 }
 
 variable "sddc_manager" {
   description = "SDDC appliance settings."
   type = object({
-    name = string
-    ip   = string
+    hostname = string
     passwords = object({
-      root     = string
-      vcf_user = string
+      root  = string
+      local = string #(admin@local)
+      ssh   = string
     })
   })
 }
@@ -203,8 +195,8 @@ variable "sddc_manager" {
 variable "cluster_config" {
   description = "vSphere Cluster configuration."
   type = object({
-    name = string
-    vlcm = optional(bool, true)
+    name            = string
+    datacenter_name = string
     vsan = object({
       name  = optional(string)
       esa   = optional(bool, false)
@@ -223,10 +215,12 @@ variable "vlcm" {
 variable "dvs" {
   description = "Distributed Virtual Switch settings for the Management Cluster."
   type = object({
-    name    = string,
-    version = optional(string, "8.0")
-    mtu     = optional(string, 1700)
-    uplinks = list(string)
+    name = string
+    mtu  = optional(string, 9000)
+    uplink_mapping = list(object({
+      uplink = string # Name uplink1, uplink2
+      vmnic  = string # Name vmnic0, vmnic1, etc.
+    }))
   })
 }
 
@@ -270,11 +264,9 @@ variable "standard_switch_name" {
 
 variable "hosts" {
   description = "ESXi hosts to commisioning for the Management Cluster. Assumes 'root' user."
-  type        = map(list(string))
-  default = {
-    #host1 = ["ip", "subnetmask", "gateway", "password"]
-    #host2 = ["ip", "subnetmask", "gateway", "password"]
-    #host3 = ["ip", "subnetmask", "gateway", "password"]
-    #host4 = ["ip", "subnetmask", "gateway", "password"]
-  }
+  type = list(object({
+    hostname = string
+    username = optional(string, "root")
+    password = string
+  }))
 }

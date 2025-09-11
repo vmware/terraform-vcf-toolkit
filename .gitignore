@@ -2,15 +2,12 @@
 **/.terraform/*
 
 # .tfstate files
-*.tfstate
-*.tfstate.*
+**.tfstate
+**.tfstate.*
 
 # terraform plans
 *.terraform
 *tfplan*
-
-# terraform development vars
-**/dev_*.tfvars
 
 # terraform executable
 terraform.exe
@@ -29,3 +26,7 @@ terraform.exe
 
 # VS Code
 *.code-workspace
+
+# Development
+**/*dev*/
+**/dev_*.tfvars
