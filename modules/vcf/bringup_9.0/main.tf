@@ -191,19 +191,15 @@ resource "vcf_instance" "sddc_instance" {
     for_each = var.hosts
 
     content {
-      hostname = hosts.value.hostname
-
-      dynamic "credentials" {
-        for_each = [hosts.value]
-
-        content {
-          username = credentials.value.username
-          password = credentials.value.password
+      hostname = each.value.hostname
+      
+      credentials {
+          username = each.value.username
+          password = each.value.password
         }
       }
     }
   }
-}
 # --------------------------------------------------------------- #
 # Outputs
 # --------------------------------------------------------------- #
