@@ -249,12 +249,6 @@ variable "validate_thumbprint" {
   default     = true
 }
 
-variable "standard_switch_name" {
-  description = "Name of the Standard vSwitch that will be used for migration to the cluster Distributed Virtual Switch."
-  type        = string
-  default     = "vSwitch0"
-}
-
 variable "hosts" {
   description = "ESXi hosts to commisioning for the Management Cluster. Assumes 'root' user."
   type = list(object({
