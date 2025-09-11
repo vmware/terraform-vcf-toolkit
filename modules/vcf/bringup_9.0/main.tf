@@ -147,10 +147,10 @@ resource "vcf_instance" "sddc_instance" {
 
   # Storage Configuration
   vsan {
-    datastore_name = var.cluster_config.vsan.name
-    esa_enabled    = var.cluster_config.vsan.esa
-    vsan_dedup     = var.cluster_config.vsan.dedup
-    failures_to_tolerate       = var.cluster_config.vsan.ftt
+    datastore_name       = var.cluster_config.vsan.name
+    esa_enabled          = var.cluster_config.vsan.esa
+    vsan_dedup           = var.cluster_config.vsan.dedup
+    failures_to_tolerate = var.cluster_config.vsan.ftt
   }
 
   # Networking Configuration
@@ -192,14 +192,14 @@ resource "vcf_instance" "sddc_instance" {
 
     content {
       hostname = each.value.hostname
-      
+
       credentials {
-          username = each.value.username
-          password = each.value.password
-        }
+        username = each.value.username
+        password = each.value.password
       }
     }
   }
+}
 # --------------------------------------------------------------- #
 # Outputs
 # --------------------------------------------------------------- #
