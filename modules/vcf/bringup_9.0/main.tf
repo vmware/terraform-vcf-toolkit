@@ -30,7 +30,6 @@ resource "vcf_instance" "sddc_instance" {
   dns {
     domain                = var.domain_suffix
     name_server           = var.dns.0
-    secondary_name_server = var.dns.1
   }
 
   # Network Pool Settings
@@ -43,6 +42,7 @@ resource "vcf_instance" "sddc_instance" {
     subnet         = var.network_pool_mgmt_appliances["subnet_cidr"]
     gateway        = var.network_pool_mgmt_appliances["gateway"]
     mtu            = var.network_pool_mgmt_appliances["mtu"]
+    active_uplinks = ["uplink1", "uplink2"]
   }
 
   network {
@@ -52,6 +52,7 @@ resource "vcf_instance" "sddc_instance" {
     subnet         = var.network_pool_mgmt_esxi["subnet_cidr"]
     gateway        = var.network_pool_mgmt_esxi["gateway"]
     mtu            = var.network_pool_mgmt_esxi["mtu"]
+    active_uplinks = ["uplink1", "uplink2"]
   }
 
   network {
@@ -61,6 +62,7 @@ resource "vcf_instance" "sddc_instance" {
     subnet         = var.network_pool_mgmt_vmotion["subnet_cidr"]
     gateway        = var.network_pool_mgmt_vmotion["gateway"]
     mtu            = var.network_pool_mgmt_vmotion["mtu"]
+    active_uplinks = ["uplink1", "uplink2"]
 
     include_ip_address_ranges {
       start_ip_address = var.network_pool_mgmt_vmotion["range_start"]
@@ -75,6 +77,7 @@ resource "vcf_instance" "sddc_instance" {
     subnet         = var.network_pool_mgmt_vsan["subnet_cidr"]
     gateway        = var.network_pool_mgmt_vsan["gateway"]
     mtu            = var.network_pool_mgmt_vsan["mtu"]
+    active_uplinks = ["uplink1", "uplink2"]
 
     include_ip_address_ranges {
       start_ip_address = var.network_pool_mgmt_vsan["range_start"]
@@ -109,7 +112,7 @@ resource "vcf_instance" "sddc_instance" {
     dynamic "nsx_manager" {
       for_each = var.nsx_cluster_appliances
       content {
-        hostname = each.value
+        hostname = nsx_manager.value
       }
     }
 
@@ -162,8 +165,8 @@ resource "vcf_instance" "sddc_instance" {
       for_each = var.dvs.uplink_mapping
 
       content {
-        uplink = each.value.uplink
-        vmnic  = each.value.vmnic
+        uplink = vmnic_mapping.value.uplink
+        vmnic  = vmnic_mapping.value.vmnic
       }
     }
 
@@ -188,12 +191,13 @@ resource "vcf_instance" "sddc_instance" {
   skip_esx_thumbprint_validation = var.validate_thumbprint
 
   dynamic "host" {
-    for_each = var.hosts
+  for_each = var.hosts
     content {
-      hostname = host.value.hostname
+      hostname = host.key
+
       credentials {
-        username = host.value.credentials.username
-        password = host.value.credentials.password
+        username = host.value.0
+        password = host.value.1
       }
     }
   }
