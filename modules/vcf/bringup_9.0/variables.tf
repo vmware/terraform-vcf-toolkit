@@ -250,10 +250,13 @@ variable "validate_thumbprint" {
 }
 
 variable "hosts" {
-  description = "ESXi hosts to commisioning for the Management Cluster. Assumes 'root' user."
+  description = "ESXi hosts to commisioning for the Management Cluster."
   type = list(object({
     hostname = string
-    username = optional(string, "root")
-    password = string
+    credentials = object({
+      username = optional(string, "root")
+      password = string
+    })
   }))
+  sensitive = true
 }
