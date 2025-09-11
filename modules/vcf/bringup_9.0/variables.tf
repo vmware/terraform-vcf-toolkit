@@ -250,7 +250,7 @@ variable "validate_thumbprint" {
 }
 
 variable "hosts" {
-  description = "ESXi hosts to commisioning for the Management Cluster."
+  description = "ESXi hosts to commission for the Management Cluster."
   type = list(object({
     hostname = string
     credentials = object({
