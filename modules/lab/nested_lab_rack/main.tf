@@ -93,24 +93,30 @@ resource "vsphere_virtual_machine" "nested_esxi" {
   }
 
   # Datastore Configuration
+  nvme_controller_count = 3
+
   disk {
     label            = "os"
     size             = 32
     thin_provisioned = true
     unit_number      = 0
+    controller_type = "nvme"
   }
   disk {
     label            = "cache"
-    size             = var.cache_disk_size
+    size             = 32
     thin_provisioned = true
     unit_number      = 1
+    controller_type = "nvme"
   }
   disk {
     label            = "data1"
     size             = var.data_disk_size
     thin_provisioned = true
     unit_number      = 2
+    controller_type = "nvme"
   }
+
 
   # OVF Template (deployed to destination vCenter)
   clone {

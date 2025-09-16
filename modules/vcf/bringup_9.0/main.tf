@@ -22,6 +22,9 @@ terraform {
 # VCF Management Domain Creation
 # --------------------------------------------------------------- #
 resource "vcf_instance" "sddc_instance" {
+  version = "9.0"
+  fips_enabled = false
+  
   instance_id  = var.sddc_manager.hostname
   ceip_enabled = var.ceip
 
@@ -91,8 +94,9 @@ resource "vcf_instance" "sddc_instance" {
   sddc_manager {
     hostname            = var.sddc_manager.hostname
     root_user_password  = var.sddc_manager.passwords.root
-    local_user_password = var.sddc_manager.passwords.local
     ssh_password        = var.sddc_manager.passwords.ssh
+    local_user_password = var.sddc_manager.passwords.local
+
   }
 
   vcenter {
@@ -185,8 +189,25 @@ resource "vcf_instance" "sddc_instance" {
         value        = nioc.value
       }
     }
-  }
 
+    nsxt_switch_config {
+      host_switch_operational_mode = "ENS"
+      ip_assignment_type = "STATIC"
+
+      transport_zones {
+        name = var.network_pool_mgmt_tep["tz_overlay_name"]
+        transport_type = "OVERLAY"
+      }
+    }
+
+    nsx_teaming {
+      policy = "LOADBALANCE_SRCID"
+      active_uplinks = [
+        "uplink1",
+        "uplink2"
+      ]
+    }
+  }
   # Host Commissioning
   skip_esx_thumbprint_validation = var.validate_thumbprint
 

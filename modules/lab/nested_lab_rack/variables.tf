@@ -114,7 +114,7 @@ variable "passwords" {
 variable "cache_disk_size" {
   description = "Size in GB of the vSAN cache disk. Required for OSA"
   type        = number
-  default     = 500
+  default     = 250
 }
 
 variable "data_disk_size" {
