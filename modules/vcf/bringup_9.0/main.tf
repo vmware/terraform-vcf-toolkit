@@ -139,6 +139,32 @@ resource "vcf_instance" "sddc_instance" {
     transport_vlan_id = var.nsx_cluster_settings.transport_zone_vlan
   }
 
+  operations {
+    dynamic "node" {
+        for_each = var.operations_nodes.nodes
+        content {
+          hostname           = node.value.hostname
+          root_user_password = node.value.root_user_password
+          type               = node.value.type
+        }
+      }
+      admin_user_password = var.operations_nodes.admin_password
+      appliance_size      = var.operations_nodes.appliance_size
+      load_balancer_fqdn  = var.operations_nodes.vip_fqdn
+    }
+
+  operations_collector {
+      hostname           = var.operations_collector.hostname
+      root_user_password = var.operations_collector.root_user_password
+      appliance_size     = var.operations_collector.appliance_size
+    }
+
+  operations_fleet_management {
+      hostname            = var.fleet_manager.hostname
+      root_user_password  = var.fleet_manager.root_password
+      admin_user_password = var.fleet_manager.admin_password
+  }
+
   # --------------------------------------------------------------- #
   # Management Cluster Configuration
   # --------------------------------------------------------------- #
@@ -208,6 +234,7 @@ resource "vcf_instance" "sddc_instance" {
       ]
     }
   }
+
   # Host Commissioning
   skip_esx_thumbprint_validation = var.validate_thumbprint
 

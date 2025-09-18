@@ -141,6 +141,7 @@ variable "network_pool_mgmt_tep" {
 # Management Domain - Appliance Variables
 # --------------------------------------------------------------- #
 
+# vCenter
 variable "vcenter" {
   description = "vCenter appliance settings for the Management Domain."
   type = object({
@@ -151,6 +152,7 @@ variable "vcenter" {
   })
 }
 
+# NSX
 variable "nsx_cluster_appliances" {
   description = "NSX appliance cluster names."
   type        = list(string)
@@ -170,6 +172,7 @@ variable "nsx_cluster_settings" {
   })
 }
 
+# SDDC Manager
 variable "sddc_manager" {
   description = "SDDC appliance settings."
   type = object({
@@ -180,6 +183,54 @@ variable "sddc_manager" {
       ssh   = string
     })
   })
+}
+
+# VCF Operations
+variable "operations_nodes" {
+  description = "VCF Operations cluster."
+  type = object({
+    admin_password = string
+    vip_fqdn = string
+    appliance_size = optional(string, "medium") # medium, large, xlarge
+
+    nodes = list(object({
+      hostname = string
+      root_user_password = optional(string, "VMware1!VMware1!")
+      type = string # master, data, replica
+    }))
+  })
+}
+
+variable "operations_collector" {
+  type = object({
+    hostname = string
+    root_user_password = optional(string, "VMware1!VMware1!")
+    appliance_size = optional(string, "standard") # small, standard
+  })
+}
+
+# Fleet Manager
+variable "fleet_manager" {
+  description = "VCF Operations Fleet Manager."
+  type = object({
+    hostname = optional(string)
+    root_password  = optional(string)
+    admin_password = optional(string)
+    })
+}
+
+# VCF Automation
+variable "automation_cluster" {
+  description = "VCF Automation settings."
+  type = object({
+    hostname = string
+    admin_password = string
+    internal_cluster_cidr = optional(string, "240.0.0.0/15") #198.18.0.0/15, 240.0.0.0/15, 250.0.0.0/15
+    ip_pool = list(string)
+    node_prefix = optional(string, "vcfa")
+    })
+
+  default = null
 }
 
 # --------------------------------------------------------------- #
