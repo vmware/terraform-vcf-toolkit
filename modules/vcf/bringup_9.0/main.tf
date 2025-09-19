@@ -24,9 +24,9 @@ terraform {
 resource "vcf_instance" "sddc_instance" {
   version = "9.0"
   fips_enabled = false
-  
-  instance_id  = var.sddc_manager.hostname
   ceip_enabled = var.ceip
+
+  instance_id  = var.vcf_instance == "" ? var.sddc_manager.hostname : var.vcf_instance
 
   ntp_servers = var.ntp
 
@@ -163,6 +163,14 @@ resource "vcf_instance" "sddc_instance" {
       hostname            = var.fleet_manager.hostname
       root_user_password  = var.fleet_manager.root_password
       admin_user_password = var.fleet_manager.admin_password
+  }
+
+  automation {
+    hostname       = var.automation_cluster.hostname  
+    admin_user_password = var.automation_cluster.admin_password
+    ip_pool        = var.automation_cluster.ip_pool
+    node_prefix    = var.automation_cluster.node_prefix
+    internal_cluster_cidr = var.automation_cluster.internal_cluster_cidr
   }
 
   # --------------------------------------------------------------- #

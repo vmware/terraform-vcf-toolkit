@@ -12,6 +12,12 @@
 # --------------------------------------------------------------- #
 # Environment Variables
 # --------------------------------------------------------------- #
+variable "vcf_instance" {
+  description = "VCF site ID/Name."
+  type        = string
+  default     = ""
+}
+
 variable "domain_suffix" {
   description = "Domain suffix for appliances and hosts."
   type        = string
@@ -231,6 +237,14 @@ variable "automation_cluster" {
     })
 
   default = null
+
+  validation {
+    condition = (
+      var.automation_cluster == null ||
+      can(regex("^[a-z0-9]([a-z0-9-]*[a-z0-9])?$", var.automation_cluster.node_prefix))
+    )
+    error_message = "node_prefix must start and end with a lowercase letter or digit, and may contain lowercase letters, digits, or hyphens in between."
+  }
 }
 
 # --------------------------------------------------------------- #

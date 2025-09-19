@@ -82,6 +82,7 @@ resource "vsphere_virtual_machine" "nested_esxi" {
   num_cpus             = var.host_cpus  #16
   num_cores_per_socket = var.host_cores #8
   memory               = var.host_mem   #131076
+  memory_hot_add_enabled = true
 
   # Network Configuration
   dynamic "network_interface" {
@@ -104,7 +105,7 @@ resource "vsphere_virtual_machine" "nested_esxi" {
   }
   disk {
     label            = "cache"
-    size             = 32
+    size             = 64
     thin_provisioned = true
     unit_number      = 1
     controller_type = "nvme"

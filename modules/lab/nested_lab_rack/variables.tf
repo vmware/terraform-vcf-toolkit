@@ -127,13 +127,13 @@ variable "data_disk_size" {
 variable "host_cpus" {
   description = "Number of total vCPUs."
   type        = number
-  default     = 16
+  default     = 24
 }
 
 variable "host_cores" {
   description = "Number of total Cores per socket."
   type        = number
-  default     = 8
+  default     = 12
 }
 
 // Host Memory
