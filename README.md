@@ -8,14 +8,11 @@ This approach brings automation, consistency, and scalability to infrastructure 
 
 Terraform is used as the primary tool for defining, managing, and provisioning infrastructure. It provides a declarative language for describing infrastructure components and automates the deployment process.
 
-*❗️ As of this initial public release, the kit focuses on VCF 5.2.x and will be updated for VCF 9.x in a planned future release.*
-
 # Automation Overview
 
 This tool kit includes Terraform modules to deploy VMware Appliances, VMware Cloud Foundation and various NSX topologies. The appliances are deployed using small/est form-factors to reduce total footprint, but can be specified for any size environment.  *Some post-provisioning is required to finalize and customize each of the platforms in this version of the toolkit.*
 
 <img src = "./docs/images/pcs_patterns.png" width=100%>
-
 
 ## Hashicorp Registry
 
@@ -85,11 +82,17 @@ These deployment models are suitable for production enterprise-grade site config
 
     - Distributed Firewall Macro-Segmentation Example(s)
 
-## Example VCF Workflow
+## Example VCF Workflow 5.2
 
 The figure below depicts how workflows can be run individually and their order, but also how an end-to-end workflow can be constructed.
 
 <img src = "./docs/images/vcf_workflow.png" width=100%>
+
+## Example VCF Workflow 9.0
+
+The figure below depicts how workflows can be run individually and their order, but also how an end-to-end workflow can be constructed.
+
+<img src = "./docs/images/vcf9_basic.png" width=100%>
 
 ## Getting Started
 
