@@ -12,10 +12,22 @@
 # --------------------------------------------------------------- #
 # Environment Variables
 # --------------------------------------------------------------- #
+variable "version" {
+  description = "VCF version to deploy."
+  type        = string
+  default     = "9.0.1"
+}
+
+variable "fips" {
+  description = "FIPS mode for VCF."
+  type        = bool
+  default     = false
+}
+
 variable "vcf_instance" {
   description = "VCF site ID/Name."
   type        = string
-  default     = ""
+  default     = "Management_Domain"
 }
 
 variable "domain_suffix" {
@@ -205,6 +217,8 @@ variable "operations_nodes" {
       type = string # master, data, replica
     }))
   })
+
+  default = null
 }
 
 variable "operations_collector" {
@@ -213,6 +227,8 @@ variable "operations_collector" {
     root_user_password = optional(string, "VMware1!VMware1!")
     appliance_size = optional(string, "standard") # small, standard
   })
+
+  default = null
 }
 
 # Fleet Manager
@@ -223,6 +239,8 @@ variable "fleet_manager" {
     root_password  = optional(string)
     admin_password = optional(string)
     })
+
+    default = null
 }
 
 # VCF Automation
@@ -285,6 +303,7 @@ variable "dvs" {
 variable "nioc_profiles" {
   description = "Network IO Control Share values."
   type        = map(string)
+
   default = {
     MANAGEMENT     = "NORMAL"
     VMOTION        = "LOW"

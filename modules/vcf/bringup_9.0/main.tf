@@ -22,11 +22,11 @@ terraform {
 # VCF Management Domain Creation
 # --------------------------------------------------------------- #
 resource "vcf_instance" "sddc_instance" {
-  version = "9.0"
-  fips_enabled = false
+  version = var.version
+  fips_enabled = var.fips
   ceip_enabled = var.ceip
 
-  instance_id  = var.vcf_instance == "" ? var.sddc_manager.hostname : var.vcf_instance
+  instance_id  = var.vcf_instance
 
   ntp_servers = var.ntp
 
@@ -40,51 +40,51 @@ resource "vcf_instance" "sddc_instance" {
 
   network {
     network_type   = "VM_MANAGEMENT"
-    port_group_key = var.network_pool_mgmt_appliances["port_group_name"]
-    vlan_id        = var.network_pool_mgmt_appliances["vlan"]
-    subnet         = var.network_pool_mgmt_appliances["subnet_cidr"]
-    gateway        = var.network_pool_mgmt_appliances["gateway"]
-    mtu            = var.network_pool_mgmt_appliances["mtu"]
+    port_group_key = var.network_pool_mgmt_appliances.port_group_name
+    vlan_id        = var.network_pool_mgmt_appliances.vlan
+    subnet         = var.network_pool_mgmt_appliances.subnet_cidr
+    gateway        = var.network_pool_mgmt_appliances.gateway
+    mtu            = var.network_pool_mgmt_appliances.mtu
     active_uplinks = ["uplink1", "uplink2"]
   }
 
   network {
     network_type   = "MANAGEMENT"
-    port_group_key = var.network_pool_mgmt_esxi["port_group_name"]
-    vlan_id        = var.network_pool_mgmt_esxi["vlan"]
-    subnet         = var.network_pool_mgmt_esxi["subnet_cidr"]
-    gateway        = var.network_pool_mgmt_esxi["gateway"]
-    mtu            = var.network_pool_mgmt_esxi["mtu"]
+    port_group_key = var.network_pool_mgmt_esxi.port_group_name
+    vlan_id        = var.network_pool_mgmt_esxi.vlan
+    subnet         = var.network_pool_mgmt_esxi.subnet_cidr
+    gateway        = var.network_pool_mgmt_esxi.gateway
+    mtu            = var.network_pool_mgmt_esxi.mtu
     active_uplinks = ["uplink1", "uplink2"]
   }
 
   network {
     network_type   = "VMOTION"
-    port_group_key = var.network_pool_mgmt_vmotion["port_group_name"]
-    vlan_id        = var.network_pool_mgmt_vmotion["vlan"]
-    subnet         = var.network_pool_mgmt_vmotion["subnet_cidr"]
-    gateway        = var.network_pool_mgmt_vmotion["gateway"]
-    mtu            = var.network_pool_mgmt_vmotion["mtu"]
+    port_group_key = var.network_pool_mgmt_vmotion.port_group_name
+    vlan_id        = var.network_pool_mgmt_vmotion.vlan
+    subnet         = var.network_pool_mgmt_vmotion.subnet_cidr
+    gateway        = var.network_pool_mgmt_vmotion.gateway
+    mtu            = var.network_pool_mgmt_vmotion.mtu
     active_uplinks = ["uplink1", "uplink2"]
 
     include_ip_address_ranges {
-      start_ip_address = var.network_pool_mgmt_vmotion["range_start"]
-      end_ip_address   = var.network_pool_mgmt_vmotion["range_end"]
+      start_ip_address = var.network_pool_mgmt_vmotion.range_start
+      end_ip_address   = var.network_pool_mgmt_vmotion.range_end
     }
   }
 
   network {
     network_type   = "VSAN"
-    port_group_key = var.network_pool_mgmt_vsan["port_group_name"]
-    vlan_id        = var.network_pool_mgmt_vsan["vlan"]
-    subnet         = var.network_pool_mgmt_vsan["subnet_cidr"]
-    gateway        = var.network_pool_mgmt_vsan["gateway"]
-    mtu            = var.network_pool_mgmt_vsan["mtu"]
+    port_group_key = var.network_pool_mgmt_vsan.port_group_name
+    vlan_id        = var.network_pool_mgmt_vsan.vlan
+    subnet         = var.network_pool_mgmt_vsan.subnet_cidr
+    gateway        = var.network_pool_mgmt_vsan.gateway
+    mtu            = var.network_pool_mgmt_vsan.mtu
     active_uplinks = ["uplink1", "uplink2"]
 
     include_ip_address_ranges {
-      start_ip_address = var.network_pool_mgmt_vsan["range_start"]
-      end_ip_address   = var.network_pool_mgmt_vsan["range_end"]
+      start_ip_address = var.network_pool_mgmt_vsan.range_start
+      end_ip_address   = var.network_pool_mgmt_vsan.range_end
     }
   }
 
@@ -126,12 +126,12 @@ resource "vcf_instance" "sddc_instance" {
       ignore_unavailable_nsx_cluster = true
 
       subnet {
-        cidr    = var.network_pool_mgmt_tep["subnet_cidr"]
-        gateway = var.network_pool_mgmt_tep["gateway"]
+        cidr    = var.network_pool_mgmt_tep.subnet_cidr
+        gateway = var.network_pool_mgmt_tep.gateway
 
         ip_address_pool_range {
-          start = var.network_pool_mgmt_tep["range_start"]
-          end   = var.network_pool_mgmt_tep["range_end"]
+          start = var.network_pool_mgmt_tep.range_start
+          end   = var.network_pool_mgmt_tep.range_end
         }
       }
     }
@@ -139,7 +139,12 @@ resource "vcf_instance" "sddc_instance" {
     transport_vlan_id = var.nsx_cluster_settings.transport_zone_vlan
   }
 
-  operations {
+  # --------------------------------------------------------------- #
+  # VCF Platforms - Operations, Fleet Manager, Automation
+  # --------------------------------------------------------------- #
+  dynamic "operations" {
+    for_each = var.operations_nodes != null ? [var.operations_nodes] : []
+    content {
     dynamic "node" {
         for_each = var.operations_nodes.nodes
         content {
@@ -152,25 +157,35 @@ resource "vcf_instance" "sddc_instance" {
       appliance_size      = var.operations_nodes.appliance_size
       load_balancer_fqdn  = var.operations_nodes.vip_fqdn
     }
+  }
 
-  operations_collector {
+  dynamic "operations_collector" {
+    for_each = var.operations_collector != null ? [var.operations_collector] : []
+    content {
       hostname           = var.operations_collector.hostname
       root_user_password = var.operations_collector.root_user_password
       appliance_size     = var.operations_collector.appliance_size
     }
+  }
 
-  operations_fleet_management {
+  dynamic "operations_fleet_management" {
+    for_each = var.fleet_manager != null ? [var.fleet_manager] : []
+    content {
       hostname            = var.fleet_manager.hostname
       root_user_password  = var.fleet_manager.root_password
       admin_user_password = var.fleet_manager.admin_password
+    }
   }
 
-  automation {
-    hostname       = var.automation_cluster.hostname  
-    admin_user_password = var.automation_cluster.admin_password
-    ip_pool        = var.automation_cluster.ip_pool
-    node_prefix    = var.automation_cluster.node_prefix
-    internal_cluster_cidr = var.automation_cluster.internal_cluster_cidr
+  dynamic "automation" {
+    for_each = var.automation_cluster != null ? [var.automation_cluster] : []
+    content {
+      hostname       = automation.value.hostname
+      admin_user_password = automation.value.admin_password
+      ip_pool        = automation.value.ip_pool
+      node_prefix    = automation.value.node_prefix
+      internal_cluster_cidr = automation.value.internal_cluster_cidr
+    }
   }
 
   # --------------------------------------------------------------- #
@@ -229,7 +244,7 @@ resource "vcf_instance" "sddc_instance" {
       ip_assignment_type = "STATIC"
 
       transport_zones {
-        name = var.network_pool_mgmt_tep["tz_overlay_name"]
+        name = var.network_pool_mgmt_tep.tz_overlay_name
         transport_type = "OVERLAY"
       }
     }
