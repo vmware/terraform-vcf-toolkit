@@ -12,7 +12,7 @@
 # --------------------------------------------------------------- #
 # Environment Variables
 # --------------------------------------------------------------- #
-variable "version" {
+variable "vcf_version" {
   description = "VCF version to deploy."
   type        = string
   default     = "9.0.1"
@@ -27,7 +27,7 @@ variable "fips" {
 variable "vcf_instance" {
   description = "VCF site ID/Name."
   type        = string
-  default     = "Management_Domain"
+  default     = "Management"
 }
 
 variable "domain_suffix" {
@@ -293,6 +293,7 @@ variable "dvs" {
   type = object({
     name = string
     mtu  = optional(string, 9000)
+    nsx_mode = optional(string, "STANDARD")
     uplink_mapping = list(object({
       uplink = string # Name uplink1, uplink2
       vmnic  = string # Name vmnic0, vmnic1, etc.

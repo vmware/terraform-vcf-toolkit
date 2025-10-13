@@ -22,7 +22,7 @@ terraform {
 # VCF Management Domain Creation
 # --------------------------------------------------------------- #
 resource "vcf_instance" "sddc_instance" {
-  version = var.version
+  version = var.vcf_version
   fips_enabled = var.fips
   ceip_enabled = var.ceip
 
@@ -240,7 +240,7 @@ resource "vcf_instance" "sddc_instance" {
     }
 
     nsxt_switch_config {
-      host_switch_operational_mode = "ENS"
+      host_switch_operational_mode = var.dvs.nsx_mode
       ip_assignment_type = "STATIC"
 
       transport_zones {
