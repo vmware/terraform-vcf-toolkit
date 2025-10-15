@@ -1,11 +1,18 @@
 # --------------------------------------------------------------- #
-# Nested ESXi host deployment for VMW Pro Cloud Services Lab
+# Nested ESXi host deployment for a VCF Nested Lab
 # [] Deploys # of ESXi VMs
 #
 # Steven Tumolo - VMW by Broadcom
 # Version | 2.0
 # --------------------------------------------------------------- #
-
+terraform {
+  required_providers {
+    vsphere = {
+      source  = "vmware/vsphere"
+      version = "2.15.0"
+    }
+  }
+}
 # --------------------------------------------------------------- #
 # vCenter Configuration
 # --------------------------------------------------------------- #
@@ -67,11 +74,15 @@ resource "vsphere_virtual_machine" "nested_esxi" {
   enable_logging      = true
   nested_hv_enabled   = true
 
+  firmware = "efi"
+
   # Compute Configuration
-  guest_id             = "vmkernel65Guest"
+  #guest_id             = "vmkernel65Guest"
+  guest_id             = "vmkernel8Guest" #required for 9.0
   num_cpus             = var.host_cpus  #16
   num_cores_per_socket = var.host_cores #8
   memory               = var.host_mem   #131076
+  memory_hot_add_enabled = true
 
   # Network Configuration
   dynamic "network_interface" {
@@ -83,24 +94,30 @@ resource "vsphere_virtual_machine" "nested_esxi" {
   }
 
   # Datastore Configuration
+  nvme_controller_count = 3
+
   disk {
     label            = "os"
     size             = 32
     thin_provisioned = true
     unit_number      = 0
+    controller_type = "nvme"
   }
   disk {
     label            = "cache"
-    size             = 16
+    size             = 64
     thin_provisioned = true
     unit_number      = 1
+    controller_type = "nvme"
   }
   disk {
     label            = "data1"
     size             = var.data_disk_size
     thin_provisioned = true
     unit_number      = 2
+    controller_type = "nvme"
   }
+
 
   # OVF Template (deployed to destination vCenter)
   clone {

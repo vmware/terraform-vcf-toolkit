@@ -6,8 +6,8 @@
 terraform {
   required_providers {
     vsphere = {
-      source  = "hashicorp/vsphere"
-      version = "2.11.0"
+      source  = "vmware/vsphere"
+      version = "2.15.0"
     }
     nsxt = {
       source  = "vmware/nsxt"
@@ -59,6 +59,8 @@ resource "vsphere_supervisor" "supervisor" {
   content_library = data.vsphere_content_library.library.id
   main_dns        = [var.dns.environment]
   worker_dns      = [var.dns.worker]
+  worker_ntp = var.ntp
+  main_ntp = var.ntp
   search_domains  = var.search_domains
   dvs_uuid        = data.vsphere_distributed_virtual_switch.dvs.id
   sizing_hint     = var.k8s_api_size

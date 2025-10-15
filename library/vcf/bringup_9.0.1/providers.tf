@@ -3,9 +3,9 @@
 # --------------------------------------------------------------- #
 terraform {
   required_providers {
-    vsphere = {
-      source  = "vmware/vsphere"
-      version = "2.15.0"
+    vcf = {
+      source  = "vmware/vcf"
+      version = "0.17.1"
     }
   }
 }
@@ -13,9 +13,10 @@ terraform {
 # --------------------------------------------------------------- #
 # vCenter Settings
 # --------------------------------------------------------------- #
-provider "vsphere" {
-  user                 = var.vcenter_username
-  password             = var.vcenter_password
-  vsphere_server       = var.vcenter_server
-  allow_unverified_ssl = true # Required for self-signed
+provider "vcf" {
+  installer_host       = "vcf_installer_IP_or_FQDN"
+  installer_password   = "VMware1!VMware1!"
+  installer_username   = "admin@local"
+  allow_unverified_tls = true # Required for self-signed
+  alias                = "nested"
 }

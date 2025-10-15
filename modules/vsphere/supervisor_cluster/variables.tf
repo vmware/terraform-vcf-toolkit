@@ -48,6 +48,12 @@ variable "dns" {
   #worker = "8.8.8.8"
 }
 
+variable "ntp" {
+  description = "NTP Server(s)"
+  type = string
+  default = "pool.ntp.org"
+}
+
 variable "search_domains" {
   description = "List of DNS servers."
   type        = list(string)
