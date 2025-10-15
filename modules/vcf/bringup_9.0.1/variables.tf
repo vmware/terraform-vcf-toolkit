@@ -293,7 +293,7 @@ variable "dvs" {
   type = object({
     name = string
     mtu  = optional(string, 9000)
-    nsx_mode = optional(string, "STANDARD")
+    nsx_mode = optional(string, "ENS_INTERRUPT") # STANDARD|ENS_INTERRUPT|ENS
     uplink_mapping = list(object({
       uplink = string # Name uplink1, uplink2
       vmnic  = string # Name vmnic0, vmnic1, etc.
