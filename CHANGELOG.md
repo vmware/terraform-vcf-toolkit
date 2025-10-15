@@ -5,7 +5,7 @@ This release focuses on VCF 9.0:
 ## What's New? 🔥
 
 - VCF
-  - **/modules/vcf_bringup_9.0**
+  - **/modules/vcf_bringup_9.0.1**
     - Overall rework of base logic for new VCF deployment workflow.
 
 - NSX
@@ -26,11 +26,6 @@ This release focuses on VCF 9.0:
 ## Improvements 🛠️
 
 - Lab modules updates for nested deployment workflows.
-
-- **/modules/vcf/network_pool**
-  - Variable and logic improvement.
-- **/modules/vcf/host_commission**
-  - Variable and logic improvement.
   
 ## In Development 🏗️
 

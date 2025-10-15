@@ -82,17 +82,17 @@ These deployment models are suitable for production enterprise-grade site config
 
     - Distributed Firewall Macro-Segmentation Example(s)
 
-## Example VCF Workflow 5.2
-
-The figure below depicts how workflows can be run individually and their order, but also how an end-to-end workflow can be constructed.
-
-<img src = "./docs/images/vcf_workflow.png" width=100%>
-
 ## Example VCF Workflow 9.0
 
 The figure below depicts how workflows can be run individually and their order, but also how an end-to-end workflow can be constructed.
 
 <img src = "./docs/images/vcf9_basic.png" width=100%>
+
+## Example Legacy VCF Workflow 5.2
+
+The figure below depicts how workflows can be run individually and their order, but also how an end-to-end workflow can be constructed.
+
+<img src = "./docs/images/vcf_workflow.png" width=100%>
 
 ## Getting Started
 
