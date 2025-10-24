@@ -1,4 +1,18 @@
 # --------------------------------------------------------------- #
+# Licensing 
+# --------------------------------------------------------------- #
+variable "license_keys" {
+  description = "License Keys for the Workload Domain"
+  type        = map(string)
+  default = {
+    #nsx = "AAAAA-BBBBB-CCCCC-DDDDD-EEEEE"
+    #vcenter = "AAAAA-BBBBB-CCCCC-DDDDD-EEEEE"
+    #vsan = "AAAAA-BBBBB-CCCCC-DDDDD-EEEEE"
+    #esxi = "AAAAA-BBBBB-CCCCC-DDDDD-EEEEE"
+  }
+  sensitive = true
+}
+# --------------------------------------------------------------- #
 # Environment Variables
 # --------------------------------------------------------------- #
 variable "workload_domain_name" {
@@ -18,18 +32,6 @@ variable "vm_management_network" {
     subnet_mask = string
   })
 }
-
-variable "sso_domain_name" {
-  description = "SSO Domain name for the Workload Domain."
-  type        = string
-}
-
-variable "sso_domain_password" {
-  description = "SSO Domain password for the Workload Domain."
-  type        = string
-  sensitive   = true
-}
-
 # --------------------------------------------------------------- #
 # Workload Domain - Appliance Variables
 # --------------------------------------------------------------- #
@@ -40,10 +42,9 @@ variable "vcenter" {
     fqdn          = string
     ip            = string
     root_password = string
-    gateway       = optional(string)
-    subnet_mask   = optional(string)
     size          = optional(string, "medium")   #tiny, small, medium, large, xlarge
     storage       = optional(string, "lstorage") # or xlstorage
+    subnet_mask   = optional(string)
     datacenter    = optional(string)
   })
 }
@@ -60,7 +61,7 @@ variable "nsx_cluster_appliances" {
 variable "nsx_cluster_settings" {
   description = "NSX appliance cluster settings for the Management Domain."
   type = object({
-    size = optional(string, "medium") # small, medium or large
+    size = optional(string, "medium") # medium or large
     vip  = string
     fqdn = string
     passwords = object({
@@ -77,24 +78,6 @@ variable "nsx_cluster_settings" {
 # [] Cluster can be leveraged for Datacenter, Cluster,
 #    VDS and portgroup object names. 
 # --------------------------------------------------------------- #
-variable "source_cluster_image" {
-  description = "Name of the source cluster to reference, typically the Management Cluster."
-  type = object({
-    name       = string
-    datacenter = string
-  })
-}
-
-variable "management_domain" {
-  description = "Name of the Management Domain."
-  type        = string
-}
-
-variable "personality_id" {
-  description = "UUID of the VCF Personality (vLCM Image)"
-  type = string
-}
-
 variable "cluster_config" {
   description = "vSphere Cluster configuration."
   type = object({
@@ -114,6 +97,7 @@ variable "dvs" {
   description = "Distributed Virtual Switch settings for the Workload Cluster."
   type = object({
     name    = optional(string, null)
+    version = optional(string, "8.0")
     mtu     = optional(string, 1700)
     uplinks = list(string)
   })
@@ -137,8 +121,13 @@ variable "ip_pool_host_tep" {
 }
 
 variable "wld_hosts" {
-  type = object({
-    uuids         = list(string)
+  type = map(object({
+    uuid         = string
     host_uplinks = optional(list(string), ["vmnic0", "vmnic1"])
-  })
+  }))
+
+  validation {
+    condition     = length(values(var.wld_hosts).*.host_uplinks) >= 2 && length(values(var.wld_hosts).*.host_uplinks) <= 16
+    error_message = "Number of uplinks supported is between two (2) and sixteen (16)"
+  }
 }

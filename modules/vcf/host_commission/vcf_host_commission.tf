@@ -9,7 +9,7 @@ terraform {
   required_providers {
     vcf = {
       source  = "vmware/vcf"
-      version = "0.14.0"
+      version = "0.17.1"
     }
   }
 }
@@ -17,18 +17,20 @@ terraform {
 # VCF - Host Commission
 # --------------------------------------------------------------- #
 data "vcf_network_pool" "pool_id" {
-  name = var.network_pool
+  for_each = { for host, h in var.hosts : h.fqdn => h }
+  name     = each.value.network_pool
 }
 
 resource "vcf_host" "host" {
   depends_on = [data.vcf_network_pool.pool_id]
-  for_each   = var.hosts
+  for_each   = { for host, h in var.hosts : h.fqdn => h }
 
-  fqdn            = each.key
-  network_pool_id = data.vcf_network_pool.pool_id.id
+  fqdn            = each.value.fqdn
   username        = each.value.user
   password        = each.value.password
   storage_type    = each.value.storage_type
+  network_pool_name = each.value.network_pool
+  #network_pool_id   = data.vcf_network_pool.pool_id[each.key].id
 }
 
 # --------------------------------------------------------------- #

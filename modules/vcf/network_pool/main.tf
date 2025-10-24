@@ -9,7 +9,7 @@ terraform {
   required_providers {
     vcf = {
       source  = "vmware/vcf"
-      version = "0.14.0"
+      version = "0.17.1"
     }
   }
 }
