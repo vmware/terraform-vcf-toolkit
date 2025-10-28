@@ -17,8 +17,7 @@ terraform {
 # VCF - Host Commission
 # --------------------------------------------------------------- #
 data "vcf_network_pool" "pool_id" {
-  for_each = { for host, h in var.hosts : h.network_pool => h... }
-  name     = each.value.network_pool
+  name     = var.pool
 }
 
 resource "vcf_host" "host" {

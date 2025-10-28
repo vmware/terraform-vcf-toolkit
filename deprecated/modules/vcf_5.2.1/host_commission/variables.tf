@@ -11,3 +11,8 @@ variable "hosts" {
     network_pool  = string
   }))
 }
+  
+variable "pool" {
+  description = "Network pool to be used for host provisioning."
+  type        = string
+}
