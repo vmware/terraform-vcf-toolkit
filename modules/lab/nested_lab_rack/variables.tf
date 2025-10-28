@@ -110,6 +110,13 @@ variable "passwords" {
   sensitive = true
 }
 
+// Guest ID
+variable "guest_version" {
+  description = "VM Guest version"
+  type        = string
+  default = "vmkernel8Guest"
+}
+
 // Disk Sizes 
 variable "cache_disk_size" {
   description = "Size in GB of the vSAN cache disk. Required for OSA"

@@ -77,8 +77,7 @@ resource "vsphere_virtual_machine" "nested_esxi" {
   firmware = "efi"
 
   # Compute Configuration
-  #guest_id             = "vmkernel65Guest"
-  guest_id             = "vmkernel8Guest" #required for 9.0
+  guest_id             = var.guest_version
   num_cpus             = var.host_cpus  #16
   num_cores_per_socket = var.host_cores #8
   memory               = var.host_mem   #131076
