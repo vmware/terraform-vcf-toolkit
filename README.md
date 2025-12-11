@@ -1,5 +1,7 @@
 # <img src = "./docs/images/tf.png" height=30> VMware Cloud Foundation Terraform Toolkit - 1.4
 
+[![GitHub Clones](https://img.shields.io/badge/dynamic/json?color=success&label=Clone&query=count&url=https://gist.githubusercontent.com/nathanthaler/a70d34a404527b23caff392674e753c4/raw/clone.json&logo=github)](https://gist.githubusercontent.com/nathanthaler/a70d34a404527b23caff392674e753c4/raw/clone.json)
+
 This is a toolkit for deploying VMware Platforms for customer ready consumable infrastructure.  It includes prescriptive deployment patterns and topologies for automated deployment of VCF and NSX configurations.
 
 The toolkit is built with the principle of Infrastructure as Code (IaC) which is a methodology that allows management and provisioning of infrastructure using code rather than manual processes.  This means that all infrastructure components, including servers, networks, storage, and policies are defined and managed through code.  Many "Day-0" workflows have been modularized into reusable components/modules, promoting code reuse, simplifying maintenance, and enabling scalability.
