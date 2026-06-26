@@ -9,6 +9,8 @@ This release focuses on VCF 9.0:
     - Overall rework of base logic for new VCF deployment workflow.
 
 - NSX
+  - **/modules/appliances/vdefend_ssp/**
+    - Module for vDefend SSP Installer OVA (via Content Library).
 
 - LAB
 
@@ -28,6 +30,8 @@ This release focuses on VCF 9.0:
 - Lab modules updates for nested deployment workflows.
   
 ## In Development 🏗️
+
+- vDefend Modules for Security Services Platform (SSP) and Distributed Firewall Groups, Services, Policies and Rules.
 
 ## Known Issues 🐞
 

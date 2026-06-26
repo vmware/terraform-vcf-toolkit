@@ -35,6 +35,7 @@ variable "security_policy" {
     stateful    = optional(bool, true)
     tcp_strict  = optional(bool, false)
     locked      = optional(bool, true)
+    
     rules = map(object({
       name       = string
       src_groups = list(string)

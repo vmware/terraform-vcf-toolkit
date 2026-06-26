@@ -7,7 +7,7 @@ tag   = "application1"
 # Groups
 # --------------------------------------------------------------- #
 policy_groups = {
-  steve_vm_all = {
+  tenant1_all_vms = {
     criteria = {
       criteria1 = {
         key         = "Tag"
@@ -51,14 +51,14 @@ security_policy = {
       rule1 = {
         name       = "https_traffic"
         src_groups = []
-        dst_groups = ["app1_vm_all"]
+        dst_groups = ["tenant1_all_vms"]
         action     = "ALLOW"
         services   = ["HTTPS"]
       },
       rule2 = {
         name       = "ssh_traffic"
-        src_groups = ["app1_vm_all"]
-        dst_groups = ["app1_vm_all"]
+        src_groups = ["tenant1_all_vms"]
+        dst_groups = ["tenant1_all_vms"]
         action     = "ALLOW"
         services   = ["SSH", "HTTPS"]
       }
