@@ -3,10 +3,11 @@ variable "policy_groups" {
   type        = map(object({
     description = optional(string, null)
     expression  = list(object({
-      member_type  = string
-      key           = string
-      operator      = string
-      value         = string
+      member_type  = optional(string, null)
+      key          = optional(string, null)
+      operator     = optional(string, null)
+      value        = optional(string, null)
+      ip_addresses = optional(list(string), null)
     }))
   }))
 }

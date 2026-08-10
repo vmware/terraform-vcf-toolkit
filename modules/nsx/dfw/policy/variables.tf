@@ -11,12 +11,13 @@ variable "policy" {
     locked      = optional(bool, true)
     
     rules = map(object({
-      name       = string
-      src_groups = list(string)
-      dst_groups = list(string)
+      src_groups = optional(list(string), null)
+      dst_groups = optional(list(string), null)
       action     = optional(string, "ALLOW")
       services   = optional(list(string), null)
       log        = optional(bool, false)
+      log_label  = optional(string, null)
+      scope      = optional(list(string), null)
     }))
   }))
 }
