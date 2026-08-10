@@ -19,7 +19,7 @@ resource "nsxt_policy_group" "group" {
       key         = "Tag"
       member_type = "VirtualMachine"
       operator    = "EQUALS"
-      value       = "tag.${each.value.name}"
+      value       = "${each.value.value}"
     }
   }
 }
