@@ -11,6 +11,17 @@ This release focuses on VCF 9.0:
 - NSX
   - **/modules/appliances/vdefend_ssp/**
     - Module for vDefend SSP Installer OVA (via Content Library).
+  - **/modules/dfw/tags**
+    - Module for discovering VM vSphere ID, creation of tags and application of Tag to NSX VM.
+  - **/modules/dfw/services**
+    - Module to define custom services.
+  - **/modules/dfw/groups**
+    - Module to define NSX Groups with Tags or IP based criteria.
+  - **/modules/dfw/policy**
+    - Module to define an NSX Securiy Policy with a comprehensive set of firewall rules with misc. attributes.
+  - Library Item - **/library/vcf/secure_vcf_demo.tf**
+    - Structural representation of VCF Management Domain implementation defined as a template for customers to build from.
+    - MVP component, but not complete (at this time).
 
 - LAB
 
