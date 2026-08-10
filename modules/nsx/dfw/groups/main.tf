@@ -12,7 +12,7 @@ terraform {
 //Create Group Objects
 resource "nsxt_policy_group" "group" {
   for_each     = var.policy_groups
-  display_name = "${each.value.name}"
+  display_name = "${each.key}"
 
   criteria {
     condition {
