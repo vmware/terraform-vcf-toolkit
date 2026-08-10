@@ -4,7 +4,7 @@ variable "policy_groups" {
     name        = string
     description = optional(string, null)
     expression  = list(object({
-      resource_type = string
+      member_type  = string
       key           = string
       operator      = string
       value         = string
