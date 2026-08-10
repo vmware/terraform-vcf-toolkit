@@ -12,14 +12,19 @@ terraform {
 //Create Group Objects
 resource "nsxt_policy_group" "group" {
   for_each     = var.policy_groups
-  display_name = "${each.key}"
+  display_name = each.key
+  description  = each.value.description
 
-  criteria {
-    condition {
-      key         = "Tag"
-      member_type = "VirtualMachine"
-      operator    = "EQUALS"
-      value       = "${each.value}"
+  dynamic "criteria" {
+    for_each = each.value.expression
+    
+    content {
+      condition {
+        member_type = criteria.value.member_type
+        key         = criteria.value.key
+        operator    = criteria.value.operator
+        value       = criteria.value.value
+      }
     }
   }
 }
