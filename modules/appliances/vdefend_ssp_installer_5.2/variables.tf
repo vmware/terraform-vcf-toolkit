@@ -44,7 +44,7 @@ variable "folder" {
 // Resource Pool
 variable "resource_pool" {
   description = "Cluster Resource Pool."
-  default     = null
+  default     = "/Resources"
 }
 
 // Content Library
@@ -71,7 +71,7 @@ variable "ova_settings" {
     gateway     = string
     domain_list = string
     ntp         = string
-    ssh         = optional (bool, true)
+    ssh         = optional (string, "True")
     grub_menu_timeout    = optional (number, 4)
   })
 }
@@ -84,6 +84,7 @@ variable "ova_passwords" {
     grub_pass  = "VMware1!VMware1!"
     admin_pass = "VMware1!VMware1!"
     audit_pass = "VMware1!VMware1!"
+    sysadmin_pass = "VMware1!VMware1!"
   }
   sensitive = true
 

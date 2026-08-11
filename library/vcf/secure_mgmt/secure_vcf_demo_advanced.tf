@@ -28,6 +28,8 @@ provider "nsxt" {
   allow_unverified_ssl = true
 }
 
+###  vCenter Domains
+
 provider "vsphere" {
   alias          = "mgmt"
   user           = "administrator@vsphere.local"

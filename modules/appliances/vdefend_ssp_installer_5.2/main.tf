@@ -37,13 +37,13 @@ data "vsphere_datastore" "datastore" {
 
 // Resource Pool
 data "vsphere_resource_pool" "resource_pool" {
-  name          = var.resource_pool != null ? var.resource_pool : var.resource_pool
+  name          = "${var.cluster}/Resources"
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
 
 // Folder
 data "vsphere_folder" "vm_folder" {
-  path = "${var.datacenter}/vm/${var.folder}"
+  path = "${var.datacenter}/${var.folder}"
 }
 
 // VDS 
@@ -77,7 +77,6 @@ resource "vsphere_virtual_machine" "ssp_installer_vm" {
   datastore_id     = data.vsphere_datastore.datastore.id
   resource_pool_id = data.vsphere_resource_pool.resource_pool.id
   host_system_id   = data.vsphere_host.deployment_host.id
-  folder           = data.vsphere_folder.vm_folder.path
 
   wait_for_guest_ip_timeout  = 0
   wait_for_guest_net_timeout = 0
@@ -113,6 +112,7 @@ resource "vsphere_virtual_machine" "ssp_installer_vm" {
 
       # Sensitive Config 
       "vsx_grub_passwd"        = var.ova_passwords["grub_pass"],
+      "vsx_passwd_0"         = var.ova_passwords["sysadmin_pass"],
       "vsx_cli_passwd_0"       = var.ova_passwords["admin_pass"],
       "vsx_cli_audit_passwd_0" = var.ova_passwords["audit_pass"],
     }
