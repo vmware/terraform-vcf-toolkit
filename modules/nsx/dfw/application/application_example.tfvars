@@ -61,6 +61,7 @@ security_policy = {
         dst_groups = ["tenant1_all_vms"]
         action     = "ALLOW"
         services   = ["SSH", "HTTPS"]
+        logging = true
       }
     }
   }
