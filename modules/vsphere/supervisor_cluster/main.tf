@@ -1,7 +1,7 @@
 # --------------------------------------------------------------- #
 # Workload Cluster Module for vSphere  
 # [] This module deploys the Workload Supervisor Cluster
-# - for troublehsooting, check /var/log/vmware/wcp/ on the vCenter server
+# - for troubleshooting, check /var/log/vmware/wcp/ on the vCenter server
 # --------------------------------------------------------------- #
 terraform {
   required_providers {

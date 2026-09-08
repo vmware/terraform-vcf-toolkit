@@ -20,7 +20,7 @@ variable "vcenter_password" {
 # vCenter Storage Policy Configuration
 # --------------------------------------------------------------- #
 variable "tag_category" {
-  description = "vSphere Resouce to organize Tags and associate to datastores and/or virtual machines."
+  description = "vSphere Resource to organize Tags and associate to datastores and/or virtual machines."
   type = object({
     name         = string
     description  = optional(string, "")

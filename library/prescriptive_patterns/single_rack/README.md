@@ -48,7 +48,7 @@ This is the simplest way to consume the Terraform Modules and Plans.
 
 The workflow will be:
 
-1. Fillout **module.tf**
+1. Fill out **module.tf**
 2. `terraform init` > `terraform plan -out stage# -var-file="module.tfvars"` > `terraform apply stage#`
 
 ## Option 2 - TFVARS
@@ -60,15 +60,15 @@ The workflow will be:
 1. Create the **variables.tf** and define reference for each of the required variables.
    * `variable "parameter" {}`
 
-2. Fillout **module.tf** with variable placeholders
-   * `parameter = var.paramenter`
+2. Fill out **module.tf** with variable placeholders
+   * `parameter = var.parameter`
   
-3. Fillout **module.tfvars** by adding the the parameters required in the given variable.
+3. Fill out **module.tfvars** by adding the parameters required in the given variable.
 
 4. `terraform init` > `terraform plan -out stage# -var-file="module.tfvars"` > `terraform apply stage#`
 
 **Note:**
-*This processes may feel redundant but can be powerful when you have a static framework / library item to follow and will be able to apply a number of different `*.tfvars` such as building multiple sites, labs or repeatable tasks.*
+*This process may feel redundant but can be powerful when you have a static framework / library item to follow and will be able to apply a number of different `*.tfvars` such as building multiple sites, labs or repeatable tasks.*
 
 ## Stage 1 | Cloudbuilder Appliance
 

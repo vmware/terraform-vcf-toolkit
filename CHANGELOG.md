@@ -18,7 +18,7 @@ This release focuses on VCF 9.0:
   - **/modules/dfw/groups**
     - Module to define NSX Groups with Tags or IP based criteria.
   - **/modules/dfw/policy**
-    - Module to define an NSX Securiy Policy with a comprehensive set of firewall rules with misc. attributes.
+    - Module to define an NSX Security Policy with a comprehensive set of firewall rules with misc. attributes.
   - Library Item - **/library/vcf/secure_vcf_demo.tf**
     - Structural representation of VCF Management Domain implementation defined as a template for customers to build from.
     - MVP component, but not complete (at this time).

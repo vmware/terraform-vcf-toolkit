@@ -1,6 +1,6 @@
 # --------------------------------------------------------------- #
 # SDDC Workload Domain Deployment Module
-# [] Assumes 'Host Commisioning' is completed
+# [] Assumes 'Host Commissioning' is completed
 # [] Assumes pre-existing Network Pool for vSAN and vMotion
 # [] Creates Workload Domain, vCenter and NSX instance, Datacenter and Cluster
 # [] Configures hosts into newly defined cluster and prepares with NSX VIBs

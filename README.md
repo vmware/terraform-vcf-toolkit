@@ -46,7 +46,7 @@ For pre-requisites [See Here](/docs/prereqs_single_rack.md)
 
 ## Private Cloud Models
 
-These deployment models are suitable for production enterprise-grade site configurations.  Default configuration requirement minimum of three (3) fault-domains where each rack represents an FD/AZ.
+These deployment models are suitable for production enterprise-grade site configurations.  Default configuration requires a minimum of three (3) fault-domains where each rack represents an FD/AZ.
 
 ### Rack Layout(s)
 
