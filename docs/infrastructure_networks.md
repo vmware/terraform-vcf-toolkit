@@ -20,7 +20,7 @@
 | Rack 1                            | 3704                             | vSAN                                 | 10.232.133.0/24                       |                                   |
 | Rack 1                            | 3705                             | vMotion                              | 10.232.134.0/24                       |                                   |
 | Rack 1                            | 3706                             | Host TEP                             | 10.232.135.0/24                       | Must support jumbo frames         |
-| Rack 1                            | 3707                             | Edge-VM TEP                          | 10.232.136.0.24                       | Must support jumbo frames         |
+| Rack 1                            | 3707                             | Edge-VM TEP                          | 10.232.136.0/24                       | Must support jumbo frames         |
 | Rack 1                            | 3708                             | BGP 1                                | 10.232.137.0/24                       | TOR-A only                        |
 | Rack 1                            | 3709                             | BGP 2                                | 10.232.138.0/24                       | TOR-B only                        |
 
@@ -33,7 +33,7 @@
 | Rack 2                            | 3704                             | vSAN                                 | 10.232.143.0/24                       |                                   |
 | Rack 2                            | 3705                             | vMotion                              | 10.232.144.0/24                       |                                   |
 | Rack 2                            | 3706                             | Host TEP                             | 10.232.145.0/24                       | Must support jumbo frames         |
-| Rack 2                            | 3707                             | Edge-VM TEP                          | 10.232.146.0.24                       | Must support jumbo frames         |
+| Rack 2                            | 3707                             | Edge-VM TEP                          | 10.232.146.0/24                       | Must support jumbo frames         |
 | Rack 2                            | 3708                             | BGP 1                                | 10.232.147.0/24                       | TOR-A only                        |
 | Rack 2                            | 3709                             | BGP 2                                | 10.232.148.0/24                       | TOR-B only                        |
 
@@ -46,6 +46,6 @@
 | Rack 3                            | 3704                             | vSAN                                 | 10.232.153.0/24                       |                                   |
 | Rack 3                            | 3705                             | vMotion                              | 10.232.154.0/24                       |                                   |
 | Rack 3                            | 3706                             | Host TEP                             | 10.232.155.0/24                       | Must support jumbo frames         |
-| Rack 3                            | 3707                             | Edge-VM TEP                          | 10.232.156.0.24                       | Must support jumbo frames         |
+| Rack 3                            | 3707                             | Edge-VM TEP                          | 10.232.156.0/24                       | Must support jumbo frames         |
 | Rack 3                            | 3708                             | BGP 1                                | 10.232.157.0/24                       | TOR-A only                        |
 | Rack 3                            | 3709                             | BGP 2                                | 10.232.158.0/24                       | TOR-B only                        |

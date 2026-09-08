@@ -130,7 +130,7 @@ resource "nsxt_policy_transport_zone" "tz_uplinks" {
 
 # --------------------------------------------------------------- #
 # NSX-T Configuration - IP Pool
-# Update to accomodate fault_domain awareness
+# Update to accommodate fault_domain awareness
 # --------------------------------------------------------------- #
 resource "nsxt_policy_ip_pool" "ip_pool" {
   for_each     = var.ip_pool
@@ -157,7 +157,7 @@ resource "nsxt_policy_ip_pool_static_subnet" "ip_pool_ranges" {
 
 # --------------------------------------------------------------- #
 # NSX-T Configuration - Host Switch Profile
-# Update to accomodate fault_domain awareness
+# Update to accommodate fault_domain awareness
 # --------------------------------------------------------------- #
 resource "nsxt_policy_uplink_host_switch_profile" "edge_uplink_profile" {
   display_name = var.uplink_profile.name

@@ -4,7 +4,7 @@
 module "storage_policy" {
   source = "../../../../modules/vsphere/storage_policy"
 
-  # Redunant authentication. Leveraged in GOVC script
+  # Redundant authentication. Leveraged in GOVC script
   vcenter_server   = var.vcenter_server
   vcenter_username = var.vcenter_username
   vcenter_password = var.vcenter_password

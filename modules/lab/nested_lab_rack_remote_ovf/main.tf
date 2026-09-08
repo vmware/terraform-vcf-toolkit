@@ -158,7 +158,7 @@ resource "vsphere_virtual_machine" "nested_iaas_host" {
     unit_number      = 2
   }
 
-  # OVF Tempalte (deployed to destination vCenter)
+  # OVF Template (deployed to destination vCenter)
   clone {
     template_uuid = data.vsphere_virtual_machine.root_template.id
     #template_uuid = data.vsphere_content_library_item.esxi_template.id

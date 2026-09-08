@@ -12,7 +12,7 @@ This module will allow the user to deploy any number of NSX Edge-VMs to an exist
 - `port_groups` static TRUNK Distributed Port-Groups with default names.
 - A variable number of `edge_vms` placed according to the `fault_domain` mapping.
 - A single `edge_cluster`.
-- `anti_affinitiy_rule` in which the VMs will attempt to run away from one another.
+- `anti_affinity_rule` in which the VMs will attempt to run away from one another.
 - `transport_zones`
   - Discover a user-defined or VCF defined Transport-Zone
   - Create a user-defined VLAN Transport-Zone
@@ -136,6 +136,6 @@ edge_vms = {
 ## Limitations
 
 - Supports a single `uplink_profile` which enforces the same VLAN ID in each fault-domain.
-- Supports multiple clusters as the `fault_doamin` mechanic, single cluster placement across racks, is not supported at this time, unless the DRS rule placement is modified.
+- Supports multiple clusters as the `fault_domain` mechanic, single cluster placement across racks, is not supported at this time, unless the DRS rule placement is modified.
   - Default `anti_affinity_rule` will look to enforce VMs run away from each other within the same `fault_domain`.
   - Future-state will leverage host definition within the `fault_domain` construct.

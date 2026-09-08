@@ -18,7 +18,7 @@ Using this module, users can:
 
 **Setup1** deployment will utilize one (1) interface configured with an IP address on an untagged VLAN. VCF networks are configured on the same interfaces as untagged VLANs.
 
-This configuration can be loaded or modifed from the `config_setup1.yaml` file located in this directory `/modules/lab/router_vyos`.  It is the simplest setup and allows for a deployment across your underyling infrastructure with the only requirement being ***VLAN 0 / untagged packets are allowed.***
+This configuration can be loaded or modified from the `config_setup1.yaml` file located in this directory `/modules/lab/router_vyos`.  It is the simplest setup and allows for a deployment across your underlying infrastructure with the only requirement being ***VLAN 0 / untagged packets are allowed.***
 
 <img src = "../../../docs/images/vyos_setup1.png" width=100%>
 
@@ -38,7 +38,7 @@ ETH0 - ##.##.##.##/# (Routable Network)
 
 BGP can be configured with an untagged VLAN but will not be supported directly via VCF. Custom workflows can simply use a single NSX Segment/DVPG (untagged).
 
-* VCF workflows for out-of-the-box Edge-Cluster(s) require two (2) networks with associaged VLAN IDs. (See **Setup2**)
+* VCF workflows for out-of-the-box Edge-Cluster(s) require two (2) networks with associated VLAN IDs. (See **Setup2**)
 
 ## Setup2 - Tagged VLANs
 
@@ -46,13 +46,13 @@ BGP can be configured with an untagged VLAN but will not be supported directly v
 
 This setup works best when deploying to a single ESXi host, as packets will not be leaving the host uplinks and does not require network config on the underlay/physical switchports.
 
-This configuration can be loaded or modifed from the `config_setup2.yaml` file located in this directory `/modules/lab/router_vyos`
+This configuration can be loaded or modified from the `config_setup2.yaml` file located in this directory `/modules/lab/router_vyos`
 
 <img src = "../../../docs/images/vyos_setup2.png" width=100%>
 
 ### General Interface Config
 
-ETH0 - ##.##.##.##/# (Routable Network) attached to TRUNK DVGP (0-4094)
+ETH0 - ##.##.##.##/# (Routable Network) attached to TRUNK DVPG (0-4094)
 
 * VIF 1000 - 172.16.100.0/24 - ESXI
 * VIF 1001 - 172.16.101.0/24 - vMOTION
@@ -67,7 +67,7 @@ ETH0 - ##.##.##.##/# (Routable Network) attached to TRUNK DVGP (0-4094)
 
 **Setup3** deployment will utilize two (2) interfaces. ETH0 configured with an IP address on any routable network, tagged or untagged.  ETH1 will contain all of the sub-interfaces and are configured as virtual-interfaces (VIF) interfaces using VLAN IDs.
 
-This configuration can be modifed from the `config_setup2.yaml` file located in this directory `/modules/lab/router_vyos`
+This configuration can be modified from the `config_setup2.yaml` file located in this directory `/modules/lab/router_vyos`
 
 ETH0 - ##.##.##.##/# (Routable Network)
 

@@ -30,7 +30,7 @@ Description
 
 Description
 
-- **NSX** | `terraform destroy` can be particular with object depedencies/number of actions and may need to run multiple times to clean up.state
+- **NSX** | `terraform destroy` can be particular with object dependencies/number of actions and may need to run multiple times to clean up.state
 - **VCF** | The provider currently is focused on VCF 4.5, but majority of functions work with 5.0 and 5.1.  Use at own risk and development for other versions.
 
 ## Bug Fixes 🪲

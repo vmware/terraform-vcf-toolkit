@@ -6,7 +6,7 @@ Table of DNS entries required for VCF Appliances and Infrastructure.
 **MAIN DNS Server:** 10.70.12.13
 **MAIN NTP Server:** 10.70.12.13
 
-**LAB DNS Serer:** 172.16.100.5
+**LAB DNS Server:** 172.16.100.5
 **LAB NTP Server:** 172.16.100.5
 
 ### Hosts

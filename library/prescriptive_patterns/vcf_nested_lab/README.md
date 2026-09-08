@@ -1,6 +1,6 @@
 # VCF Nested Lab
 
-This library item will deploy the neccessary infrastructure to configure a nested or POC instance of VCF.
+This library item will deploy the necessary infrastructure to configure a nested or POC instance of VCF.
 
 <img src = "../../../docs/images/vcf_nested_lab_workflow.png" width=100%>
 
@@ -10,7 +10,7 @@ The deployment includes:
 - Top level (root) vSphere components such as Folder, Resource Pools and Port-Groups
 - At least four (4) nested ESXi VM appliances for VCF Bringup.
 - The VCF Cloud Builder appliance.
-- A virtual router (VyOS) appliance with relevent configuration delivered as part of clound-init.
+- A virtual router (VyOS) appliance with relevant configuration delivered as part of cloud-init.
 
 The deployment _does not_ include:
 - Jumphost images and DNS configuration.

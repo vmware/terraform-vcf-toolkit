@@ -2,7 +2,7 @@
 # Logical-Routing - Complete Topology
 # [] Leverages a specified Edge-Cluster
 # [] Creates an Active/Active (ECMP) Tier-0 Logical-Router with BGP Routing Protocol
-# [] Enables route-redistributtion
+# [] Enables route-redistribution
 # [] Defines IP Prefix-Lists and Route-Maps
 # [] Creates two (2) Uplinks per Edge-VM
 # [] Defines BGP configuration with IPv4 addressing
